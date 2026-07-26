@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>クロアチア＆スロベニア 2026年9月｜旅のご案内</title>
+<style>
+:root{
+  --ink:#1c2430; --sub:#54626f; --line:#d6dce4;
+  --sea:#0f5d8c; --sea-l:#e7f1f8; --sun:#c25c19; --paper:#fcfbf8;
+}
+*{box-sizing:border-box;}
+body{
+  margin:0; background:#868d96; color:var(--ink);
+  font-family:"Hiragino Kaku Gothic ProN","Hiragino Sans","Yu Gothic UI","Yu Gothic",
+              "Meiryo","Noto Sans JP",system-ui,sans-serif;
+  font-size:20px; line-height:1.7;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+}
+h1,h2,h3{margin:0; line-height:1.25;}
+p{margin:0;}
+a{color:inherit;}
+
+/* A4 ちょうどのページ。中身は縦フレックスで詰める */
+.page{
+  width:210mm; height:297mm; margin:10mm auto; padding:15mm 14mm;
+  background:var(--paper); box-shadow:0 4px 20px rgba(0,0,0,.32);
+  position:relative; overflow:hidden;
+  display:flex; flex-direction:column;
+}
+
+/* ---------- 表紙 ---------- */
+.cover{padding:0; justify-content:flex-end;}
+.cover-photo{position:absolute; inset:0; background:#3b4a58;}
+.cover-photo img{width:100%; height:100%; object-fit:cover; color:transparent; font-size:0;}
+.cover-veil{position:absolute; inset:0;
+  background:linear-gradient(to bottom,rgba(9,28,48,.45) 0%,rgba(9,28,48,.08) 34%,
+             rgba(7,22,38,.74) 70%,rgba(5,18,32,.93) 100%);}
+.cover-text{position:relative; color:#fff; padding:0 18mm 24mm;}
+.cover-eyebrow{font-size:23px; letter-spacing:.32em; font-weight:700; opacity:.93; margin-bottom:14px;}
+.cover-title{font-size:64px; font-weight:800; letter-spacing:.02em;
+             text-shadow:0 2px 16px rgba(0,0,0,.55);}
+.cover-amp{font-size:38px; opacity:.8; padding:0 .12em;}
+.cover-sub{font-size:29px; font-weight:600; margin-top:18px; opacity:.96;}
+.cover-rule{width:110px; height:5px; background:#fff; opacity:.85; margin:26px 0 20px; border-radius:3px;}
+.cover-for{font-size:23px; line-height:1.95; opacity:.96;}
+
+/* ---------- 共通ヘッダ ---------- */
+.phead{flex:0 0 auto; border-bottom:4px solid var(--sea); padding-bottom:11px; margin-bottom:16px;
+       display:flex; align-items:flex-end; justify-content:space-between; gap:16px;}
+.phead h2{font-size:32px; font-weight:800; color:var(--sea);}
+.pnum{font-size:18px; color:var(--sub); font-weight:700; white-space:nowrap; padding-bottom:4px;}
+.plead{flex:0 0 auto; font-size:21px; color:var(--sub); margin-bottom:10px;}
+
+/* ---------- 行程一覧 ---------- */
+.itin{flex:0 0 auto; width:100%; border-collapse:collapse;}
+.itin td{padding:3px 12px; border-bottom:1px solid var(--line); vertical-align:middle;}
+.itin tr.japan{background:#fff3e6;}
+.itin tr.stay{background:var(--sea-l);}
+.d-date{font-weight:800; font-size:23px; white-space:nowrap; width:104px; color:var(--sea);}
+.d-dow{font-size:16px; color:var(--sub); font-weight:700; width:30px; text-align:center;}
+.d-place{font-weight:700; font-size:21px;}
+.d-note{font-size:16px; color:var(--sub); line-height:1.4;}
+.legend{flex:0 0 auto; margin-top:10px; font-size:17px; color:var(--sub);
+        display:flex; gap:26px; flex-wrap:wrap;}
+.legend span{display:flex; align-items:center; gap:9px;}
+.chip{width:26px; height:16px; border-radius:4px; border:1px solid var(--line); display:inline-block;}
+
+/* ---------- 道順 ---------- */
+.route{flex:0 0 auto; list-style:none; padding:0; margin:0;}
+.route li{display:flex; gap:16px; padding-bottom:5px; position:relative;}
+.route li:not(:last-child)::before{content:""; position:absolute; left:23px; top:48px; bottom:0;
+  width:4px; background:var(--line); border-radius:2px;}
+.bullet{flex:0 0 50px; height:50px; border-radius:50%; background:var(--sea); color:#fff;
+  display:flex; align-items:center; justify-content:center; font-size:24px; font-weight:800;
+  position:relative; z-index:1;}
+.route li.start .bullet{background:#2c7a4d;}
+.route li.goal .bullet{background:var(--sun);}
+.rbody{flex:1; min-width:0;}
+.rtop{display:flex; align-items:baseline; gap:12px; flex-wrap:wrap;}
+.rtime{font-size:17px; font-weight:800; color:var(--sun); white-space:nowrap;}
+.rline{font-size:16px; color:#fff; background:var(--sea); display:inline-block;
+  padding:2px 11px; border-radius:5px; font-weight:700;}
+.route li.goal .rline{background:var(--sun);}
+.rplace{font-size:23px; font-weight:800; margin:1px 0 2px;}
+.rdetail{font-size:17px; line-height:1.55; color:var(--ink);}
+
+.callout{flex:0 0 auto; background:var(--sea-l); border-left:9px solid var(--sea);
+  padding:11px 18px; border-radius:0 8px 8px 0; font-size:17px; line-height:1.6;}
+.callout b{color:var(--sea);}
+.ctitle{font-size:21px; font-weight:800; color:var(--sea); margin-bottom:3px;}
+.spacer{flex:1 1 auto; min-height:0;}
+
+/* ---------- 観光地ページ ---------- */
+.spot-day{display:inline-block; background:var(--sun); color:#fff; font-size:18px; font-weight:800;
+  padding:3px 15px; border-radius:20px; margin-bottom:8px;}
+.spot-name{font-size:44px; font-weight:800; color:var(--sea); line-height:1.12;}
+.spot-local{font-size:17px; color:var(--sub); font-weight:700; letter-spacing:.1em; margin-top:5px;}
+.spot-lead{flex:0 0 auto; font-size:21px; margin-bottom:14px; line-height:1.6;}
+
+/* 写真グリッド：残りの高さをすべて写真が吸収する。
+   説明は写真の上に重ねるので、写真の面積を一切削らない。 */
+.grid{flex:1 1 auto; min-height:0; display:grid; grid-template-columns:1fr 1fr;
+      grid-template-rows:1.5fr 1fr 1fr; gap:12px;}
+figure{margin:0; border-radius:10px; overflow:hidden; position:relative;
+  min-height:0; background:#e9edf1;}
+figure.wide{grid-column:1 / -1;}
+/* 写真が届かなかったとき（圏外・印刷前の読み込み失敗）にも体裁が崩れないよう、
+   写真の下に薄い地とキャプション名を敷いておく。写真が出れば完全に隠れる。 */
+.ph{position:absolute; inset:0;
+  background:repeating-linear-gradient(45deg,#eef1f4,#eef1f4 12px,#e5eaef 12px,#e5eaef 24px);}
+.ph::after{content:attr(data-label); position:absolute; inset:0; display:flex;
+  align-items:center; justify-content:center; color:#93a0ac; font-size:15px; font-weight:700;
+  text-align:center; padding:10px;}
+.ph img{position:relative; z-index:1; width:100%; height:100%; object-fit:cover; display:block;
+  color:transparent; font-size:0;}
+figcaption{position:absolute; left:0; right:0; bottom:0; color:#fff;
+  padding:26px 16px 12px;
+  background:linear-gradient(to top,rgba(6,20,34,.88) 0%,rgba(6,20,34,.6) 55%,rgba(6,20,34,0) 100%);}
+.cap-t{font-size:21px; font-weight:800; line-height:1.25; text-shadow:0 1px 4px rgba(0,0,0,.6);}
+.cap-d{font-size:16px; line-height:1.45; margin-top:2px; opacity:.94;
+  text-shadow:0 1px 4px rgba(0,0,0,.6);}
+figure.wide .cap-t{font-size:25px;}
+figure.wide .cap-d{font-size:18px;}
+
+.tips{flex:0 0 auto; margin-top:12px; border-top:3px solid var(--line); padding-top:10px;}
+.tips-h{font-size:19px; font-weight:800; color:var(--sun); margin-bottom:3px;}
+.tips ul{margin:0; padding-left:1.25em; font-size:17px; line-height:1.55;}
+.tips li{margin-bottom:2px;}
+
+.foot{flex:0 0 auto; margin-top:12px; padding-top:10px; font-size:15px; color:#8a97a4;
+      border-top:1px solid var(--line);}
+.credits{flex:1 1 auto; min-height:0; overflow:hidden; margin:0; padding-left:1.2em;
+         font-size:13px; line-height:1.6; color:var(--sub); word-break:break-word;}
+
+@media print{
+  body{background:#fff;}
+  .page{margin:0; box-shadow:none; page-break-after:always; break-after:page;}
+  .page:last-child{page-break-after:auto; break-after:auto;}
+  @page{size:A4; margin:0;}
+}
+/* スマートフォンで見るとき。写真は position:absolute なので、
+   figure 側に縦横比を与えないと高さが 0 に潰れてしまう。 */
+@media screen and (max-width:820px){
+  .page{width:auto; height:auto; margin:0 0 8px; padding:20px;}
+  .grid{grid-template-columns:1fr; grid-template-rows:none; gap:14px;}
+  figure{aspect-ratio:16/10; min-height:200px;}
+  .cover{height:78vh; min-height:460px;}
+  .cover-title{font-size:42px;}
+  .cover-amp{font-size:28px;}
+  .cover-sub{font-size:22px;}
+  .cover-for{font-size:18px;}
+  .cover-text{padding:0 22px 30px;}
+  .phead h2{font-size:27px;}
+  .spot-name{font-size:34px;}
+}
+</style>
+</head>
+<body>
+
+<section class="page cover">
+  <div class="cover-photo"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Aerial_view_of_the_Old_Town_of_Dubrovnik_-_Croatia.jpg/2000px-Aerial_view_of_the_Old_Town_of_Dubrovnik_-_Croatia.jpg" alt="ドゥブロブニク旧市街"></div>
+  <div class="cover-veil"></div>
+  <div class="cover-text">
+    <div class="cover-eyebrow">2026年9月</div>
+    <h1 class="cover-title">クロアチア<span class="cover-amp">＆</span><br>スロベニア</h1>
+    <div class="cover-sub">アドリア海と湖をめぐる 10日間</div>
+    <div class="cover-rule"></div>
+    <div class="cover-for">
+      9月18日（金）〜 9月27日（日）<br>
+      ドゥブロブニク ／ スプリト ／ プリトヴィッツェ<br>
+      ザグレブ ／ リュブリャナ ／ ブレッド湖
+    </div>
+  </div>
+</section>
+<section class="page">
+  <div class="phead"><h2>ぜんたいの行程</h2><div class="pnum">2 / 10</div></div>
+  <p class="plead">9月18日から27日までの10日間。おおまかな流れです。</p>
+  <table class="itin"><tbody><tr class="japan"><td class="d-date">9/18</td><td class="d-dow">金</td><td><div class="d-place">大阪 → 東京</div><div class="d-note">香里園から新幹線で上京。夜は息子の家に宿泊。</div></td></tr><tr class="move"><td class="d-date">9/19</td><td class="d-dow">土</td><td><div class="d-place">成田 → ドゥブロブニク</div><div class="d-note">早朝に自宅を出発。乗継便でクロアチアへ。</div></td></tr><tr class="stay"><td class="d-date">9/20</td><td class="d-dow">日</td><td><div class="d-place">ドゥブロブニク</div><div class="d-note">旧市街と城壁、スルジ山からの眺め。</div></td></tr><tr class="move"><td class="d-date">9/21</td><td class="d-dow">月</td><td><div class="d-place">ドゥブロブニク → スプリト</div><div class="d-note">アドリア海沿いを北へ。</div></td></tr><tr class="move"><td class="d-date">9/22</td><td class="d-dow">火</td><td><div class="d-place">スプリト → プリトヴィッツェ</div><div class="d-note">宮殿の街を歩いてから、内陸の国立公園へ。</div></td></tr><tr class="stay"><td class="d-date">9/23</td><td class="d-dow">水</td><td><div class="d-place">プリトヴィッツェ国立公園</div><div class="d-note">湖と滝をめぐる一日。</div></td></tr><tr class="move"><td class="d-date">9/24</td><td class="d-dow">木</td><td><div class="d-place">プリトヴィッツェ → ザグレブ</div><div class="d-note">首都ザグレブの旧市街を観光。</div></td></tr><tr class="move"><td class="d-date">9/25</td><td class="d-dow">金</td><td><div class="d-place">ザグレブ → リュブリャナ</div><div class="d-note">国境を越えてスロベニアへ。</div></td></tr><tr class="move"><td class="d-date">9/26</td><td class="d-dow">土</td><td><div class="d-place">ブレッド湖 → 帰国の途へ</div><div class="d-note">アルプスの湖を訪ねてから空港へ。</div></td></tr><tr class="japan"><td class="d-date">9/27</td><td class="d-dow">日</td><td><div class="d-place">日本 到着</div><div class="d-note">おつかれさまでした。</div></td></tr></tbody></table>
+  <div class="legend">
+    <span><i class="chip" style="background:#fff3e6"></i>日本国内・移動が中心の日</span>
+    <span><i class="chip" style="background:#e7f1f8"></i>同じ町に連泊・観光が中心の日</span>
+  </div>
+  <div class="spacer"></div>
+  <div class="callout">
+    <div class="ctitle">持ちものメモ</div>
+    パスポート ／ 常備薬は多めに ／ 歩きやすい靴 ／ 薄手の上着（朝晩は15度ほど）<br>
+    日本との時差は <b>7時間</b>（日本のほうが進んでいます）。
+  </div>
+  <div class="foot">※ 便名・時刻・宿は変わることがあります。</div>
+</section>
+<section class="page">
+  <div class="phead"><h2>9月18日（金）　香里園 → 不動前</h2><div class="pnum">3 / 10</div></div>
+  <p class="plead">東京へ移動して、息子の家に泊まります。旅行かばんはこの日から持って出ます。</p>
+  <ol class="route"><li class="start"><div class="bullet">1</div><div class="rbody"><div class="rtop"><span class="rtime">13:35 ごろ 発</span><span class="rline">京阪本線・急行　淀屋橋ゆき</span></div><div class="rplace">香里園駅</div><div class="rdetail">いつもの香里園駅から乗ります。<b>淀屋橋ゆき</b>ならどれでも大丈夫。約30分。</div></div></li><li class="change"><div class="bullet">2</div><div class="rbody"><div class="rtop"><span class="rtime">14:05 ごろ</span><span class="rline">大阪メトロ 御堂筋線・新大阪ゆき方面</span></div><div class="rplace">淀屋橋駅　でのりかえ</div><div class="rdetail">案内板の<b>「御堂筋線」</b>へ地下を5分ほど歩きます。約13分。</div></div></li><li class="ride"><div class="bullet">3</div><div class="rbody"><div class="rtop"><span class="rtime">14:30 着 ／ 15:00 ごろ 発</span><span class="rline">東海道新幹線 のぞみ（指定席）</span></div><div class="rplace">新大阪 → 品川</div><div class="rdetail"><b>品川で降ります。終点の東京ではありません。</b>約2時間25分。</div></div></li><li class="change"><div class="bullet">4</div><div class="rbody"><div class="rtop"><span class="rtime">17:25 ごろ</span><span class="rline">JR山手線・内回り</span></div><div class="rplace">品川駅　でのりかえ</div><div class="rdetail">大崎・五反田の次が<b>目黒</b>です（3つ目・約8分）。</div></div></li><li class="change"><div class="bullet">5</div><div class="rbody"><div class="rtop"><span class="rtime">17:50 ごろ</span><span class="rline">東急目黒線・各駅停車</span></div><div class="rplace">目黒駅　でのりかえ</div><div class="rdetail"><b>不動前はとなりの駅（1つ目）</b>です。約2分。</div></div></li><li class="goal"><div class="bullet">6</div><div class="rbody"><div class="rtop"><span class="rtime">18:00</span><span class="rline">東急目黒線 不動前駅</span></div><div class="rplace">不動前駅 改札口　で待ち合わせ</div><div class="rdetail"><b>不動前駅の改札は1か所だけ</b>です。改札を出たところで待っています。</div></div></li></ol>
+  <div class="spacer"></div>
+  <div class="callout">
+    <div class="ctitle">これだけ覚えておけば大丈夫</div>
+    ① 新幹線は <b>品川</b> で降りる（東京まで行かない）
+    ② 品川から <b>山手線・内回り</b> で目黒（3つ目）
+    ③ 目黒から <b>東急目黒線</b> で不動前（となり）<br>
+    <b>不動前駅の改札は1か所だけ</b>なので、迷うことはありません。18時にそこで待っています。
+    電車が遅れたときは、いつでも携帯に電話してください。
+  </div>
+  <div class="foot">※ 時刻は目安です。指定席が取れしだい、正確な列車名をお知らせします。</div>
+</section>
+<section class="page">
+  <div class="phead">
+    <div>
+      <div class="spot-day">9/19（土）〜 9/21（月）</div>
+      <h2 class="spot-name">ドゥブロブニク</h2>
+      <div class="spot-local">DUBROVNIK ／ クロアチア</div>
+    </div>
+    <div class="pnum">4 / 10</div>
+  </div>
+  <p class="spot-lead">「アドリア海の真珠」。オレンジ色の屋根と分厚い城壁が、海に浮かんで見える世界遺産の街です。</p>
+  <div class="grid"><figure class="wide"><div class="ph" data-label="城壁にぐるりと囲まれた旧市街"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Aerial_view_of_the_Old_Town_of_Dubrovnik_-_Croatia.jpg/1600px-Aerial_view_of_the_Old_Town_of_Dubrovnik_-_Croatia.jpg" alt="城壁にぐるりと囲まれた旧市街" loading="lazy"></div><figcaption><div class="cap-t">城壁にぐるりと囲まれた旧市街</div><div class="cap-d">街全体が城壁で囲まれています。上から見るとこの形。</div></figcaption></figure><figure class=""><div class="ph" data-label="プラツァ通り"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Main_street-Dubrovnik-2.jpg/1000px-Main_street-Dubrovnik-2.jpg" alt="プラツァ通り" loading="lazy"></div><figcaption><div class="cap-t">プラツァ通り</div><div class="cap-d">大理石で磨かれた目抜き通り。平らで歩きやすい道です。</div></figcaption></figure><figure class=""><div class="ph" data-label="ミンチェタ要塞"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Min%C4%8Deta_Fortress,_Dubrovnik_03.jpg/1000px-Min%C4%8Deta_Fortress,_Dubrovnik_03.jpg" alt="ミンチェタ要塞" loading="lazy"></div><figcaption><div class="cap-t">ミンチェタ要塞</div><div class="cap-d">城壁でいちばん高い塔。旧市街の目印です。</div></figcaption></figure><figure class=""><div class="ph" data-label="スルジ山のケーブルカー"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Cable_car_to_Mount_Srd_in_Dubrovnik,_Croatia_(48738636363).jpg/1000px-Cable_car_to_Mount_Srd_in_Dubrovnik,_Croatia_(48738636363).jpg" alt="スルジ山のケーブルカー" loading="lazy"></div><figcaption><div class="cap-t">スルジ山のケーブルカー</div><div class="cap-d">数分で山頂へ。歩かずに一番の絶景が見られます。</div></figcaption></figure><figure class=""><div class="ph" data-label="石畳の路地"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Old_City_of_Dubrovnik-108773.jpg/1000px-Old_City_of_Dubrovnik-108773.jpg" alt="石畳の路地" loading="lazy"></div><figcaption><div class="cap-t">石畳の路地</div><div class="cap-d">洗濯物がひらめく路地。人の暮らしがそのまま残っています。</div></figcaption></figure></div>
+  <div class="tips"><div class="tips-h">歩きかたのヒント</div><ul><li>城壁の上を一周する散歩道（約2km）は階段が多めです。無理せず、途中の階段で降りられます。</li><li>スルジ山はケーブルカーで往復します。夕暮れどきがいちばんきれいです。</li></ul></div>
+</section>
+<section class="page">
+  <div class="phead">
+    <div>
+      <div class="spot-day">9/21（月）〜 9/22（火）</div>
+      <h2 class="spot-name">スプリト</h2>
+      <div class="spot-local">SPLIT ／ クロアチア</div>
+    </div>
+    <div class="pnum">5 / 10</div>
+  </div>
+  <p class="spot-lead">ローマ皇帝の宮殿が、そのまま街になった不思議な世界遺産。1700年前の壁の中に、いまも人が住んでいます。</p>
+  <div class="grid"><figure class="wide"><div class="ph" data-label="ディオクレティアヌス宮殿"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Aerial_view_of_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48608247353).jpg/1600px-Aerial_view_of_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48608247353).jpg" alt="ディオクレティアヌス宮殿" loading="lazy"></div><figcaption><div class="cap-t">ディオクレティアヌス宮殿</div><div class="cap-d">宮殿の跡がまるごと旧市街。ここに店も家も並びます。</div></figcaption></figure><figure class=""><div class="ph" data-label="列柱廊（ペリスティル）"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Peristyle_of_Diocletian&#x27;s_Palace,_Split_(11907776284).jpg/1000px-Peristyle_of_Diocletian&#x27;s_Palace,_Split_(11907776284).jpg" alt="列柱廊（ペリスティル）" loading="lazy"></div><figcaption><div class="cap-t">列柱廊（ペリスティル）</div><div class="cap-d">宮殿の中心の広場。石段に腰かけて休めます。</div></figcaption></figure><figure class=""><div class="ph" data-label="聖ドムニウス大聖堂の鐘楼"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Cathedral_of_Saint_Domnius_-_Bell_tower_01.jpg/1000px-Cathedral_of_Saint_Domnius_-_Bell_tower_01.jpg" alt="聖ドムニウス大聖堂の鐘楼" loading="lazy"></div><figcaption><div class="cap-t">聖ドムニウス大聖堂の鐘楼</div><div class="cap-d">街のシンボル。見上げるだけでも十分な迫力です。</div></figcaption></figure><figure class=""><div class="ph" data-label="黄金の門"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Golden_Gate_entrance_to_the_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48693923167).jpg/1000px-Golden_Gate_entrance_to_the_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48693923167).jpg" alt="黄金の門" loading="lazy"></div><figcaption><div class="cap-t">黄金の門</div><div class="cap-d">宮殿の北門。かつて皇帝が通った入口です。</div></figcaption></figure><figure class=""><div class="ph" data-label="海沿いのリヴァ通り"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Riva_promenade_in_Split,_Croatia_(48693340418).jpg/1000px-Riva_promenade_in_Split,_Croatia_(48693340418).jpg" alt="海沿いのリヴァ通り" loading="lazy"></div><figcaption><div class="cap-t">海沿いのリヴァ通り</div><div class="cap-d">ヤシ並木の遊歩道。カフェでひと休みするのにぴったり。</div></figcaption></figure></div>
+  <div class="tips"><div class="tips-h">歩きかたのヒント</div><ul><li>宮殿の中は石畳がすり減って少し滑ります。歩きやすい靴がおすすめです。</li><li>鐘楼の階段はかなり急なので、登らず下から眺めるので十分です。</li></ul></div>
+</section>
+<section class="page">
+  <div class="phead">
+    <div>
+      <div class="spot-day">9/22（火）〜 9/23（水）</div>
+      <h2 class="spot-name">プリトヴィッツェ湖群国立公園</h2>
+      <div class="spot-local">PLITVIČKA JEZERA ／ クロアチア</div>
+    </div>
+    <div class="pnum">6 / 10</div>
+  </div>
+  <p class="spot-lead">16の湖が滝でつながる、クロアチアで一番有名な自然遺産。水の色は加工なしで、本当にこの色です。</p>
+  <div class="grid"><figure class="wide"><div class="ph" data-label="湖が段々につながる眺め"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Plitvice_Lakes,_Croatia,_Lower_Lakes_Panorama.JPG/1600px-Plitvice_Lakes,_Croatia,_Lower_Lakes_Panorama.JPG" alt="湖が段々につながる眺め" loading="lazy"></div><figcaption><div class="cap-t">湖が段々につながる眺め</div><div class="cap-d">展望台からの景色。ここは歩かずに見られます。</div></figcaption></figure><figure class=""><div class="ph" data-label="大滝（ヴェリキ・スラップ）"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Veliki_Slap_in_Plitvice_Lakes_National_Park_in_Croatia.jpg/1000px-Veliki_Slap_in_Plitvice_Lakes_National_Park_in_Croatia.jpg" alt="大滝（ヴェリキ・スラップ）" loading="lazy"></div><figcaption><div class="cap-t">大滝（ヴェリキ・スラップ）</div><div class="cap-d">落差78m。公園でいちばん大きな滝です。</div></figcaption></figure><figure class=""><div class="ph" data-label="湖の上にかかる木道"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wood_way_in_plitvicka.jpg/1000px-Wood_way_in_plitvicka.jpg" alt="湖の上にかかる木道" loading="lazy"></div><figcaption><div class="cap-t">湖の上にかかる木道</div><div class="cap-d">水面すれすれを歩きます。ゆっくり行きましょう。</div></figcaption></figure><figure class=""><div class="ph" data-label="いくつも重なる小さな滝"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Plitvice_Lakes,_Galovacki_buk.JPG/1000px-Plitvice_Lakes,_Galovacki_buk.JPG" alt="いくつも重なる小さな滝" loading="lazy"></div><figcaption><div class="cap-t">いくつも重なる小さな滝</div><div class="cap-d">歩くたびに景色が変わっていきます。</div></figcaption></figure><figure class=""><div class="ph" data-label="澄みきった湖面"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Plitvice_Lakes,_Croatia,_Lower_Lakes.JPG/1000px-Plitvice_Lakes,_Croatia,_Lower_Lakes.JPG" alt="澄みきった湖面" loading="lazy"></div><figcaption><div class="cap-t">澄みきった湖面</div><div class="cap-d">底の倒木まで透けて見えるほどの透明度。</div></figcaption></figure></div>
+  <div class="tips"><div class="tips-h">歩きかたのヒント</div><ul><li>園内は電気ボートとバスで移動できます。歩く区間は選べるので、体調に合わせて調整します。</li><li>木道は濡れていることがあります。滑りにくい靴と、薄手の上着があると安心です。</li></ul></div>
+</section>
+<section class="page">
+  <div class="phead">
+    <div>
+      <div class="spot-day">9/24（木）</div>
+      <h2 class="spot-name">ザグレブ</h2>
+      <div class="spot-local">ZAGREB ／ クロアチアの首都</div>
+    </div>
+    <div class="pnum">7 / 10</div>
+  </div>
+  <p class="spot-lead">屋根の模様が愛らしい教会と、活気ある青空市場。首都ですが、こぢんまりとして歩きやすい街です。</p>
+  <div class="grid"><figure class="wide"><div class="ph" data-label="聖マルコ教会"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/St._Mark&#x27;s_Church,_Zagreb_01.jpg/1600px-St._Mark&#x27;s_Church,_Zagreb_01.jpg" alt="聖マルコ教会" loading="lazy"></div><figcaption><div class="cap-t">聖マルコ教会</div><div class="cap-d">色タイルで紋章を描いた屋根。ザグレブ一番の写真スポット。</div></figcaption></figure><figure class=""><div class="ph" data-label="ザグレブ大聖堂"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Croatia-00448_-_Zagreb_Cathedral_(9286530138).jpg/1000px-Croatia-00448_-_Zagreb_Cathedral_(9286530138).jpg" alt="ザグレブ大聖堂" loading="lazy"></div><figcaption><div class="cap-t">ザグレブ大聖堂</div><div class="cap-d">高さ108m。街のどこからでも尖塔が見えます。</div></figcaption></figure><figure class=""><div class="ph" data-label="ドラツ市場"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Zagreb,_Dolac_market.JPG/1000px-Zagreb,_Dolac_market.JPG" alt="ドラツ市場" loading="lazy"></div><figcaption><div class="cap-t">ドラツ市場</div><div class="cap-d">赤い日よけが並ぶ青空市場。果物や蜂蜜が並びます。</div></figcaption></figure><figure class=""><div class="ph" data-label="世界一短いケーブルカー"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Zagreba%C4%8Dka_uspinja%C4%8Da_(Zagreb_Funicular)_(13024479974).jpg/1000px-Zagreba%C4%8Dka_uspinja%C4%8Da_(Zagreb_Funicular)_(13024479974).jpg" alt="世界一短いケーブルカー" loading="lazy"></div><figcaption><div class="cap-t">世界一短いケーブルカー</div><div class="cap-d">高台の上町へ、わずか1分で登れます。</div></figcaption></figure><figure class=""><div class="ph" data-label="イェラチッチ広場"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Zagreb_(29255640143).jpg/1000px-Zagreb_(29255640143).jpg" alt="イェラチッチ広場" loading="lazy"></div><figcaption><div class="cap-t">イェラチッチ広場</div><div class="cap-d">街の中心の広場。ここを起点に歩きます。</div></figcaption></figure></div>
+  <div class="tips"><div class="tips-h">歩きかたのヒント</div><ul><li>上町（教会のある高台）へはケーブルカーで登れます。坂道を歩く必要はありません。</li><li>市場は午前中がいちばんにぎやかです。</li></ul></div>
+</section>
+<section class="page">
+  <div class="phead">
+    <div>
+      <div class="spot-day">9/25（金）</div>
+      <h2 class="spot-name">リュブリャナ</h2>
+      <div class="spot-local">LJUBLJANA ／ スロベニアの首都</div>
+    </div>
+    <div class="pnum">8 / 10</div>
+  </div>
+  <p class="spot-lead">川沿いにカフェが並ぶ、ヨーロッパでいちばん小さくて可愛らしい首都のひとつ。丘の上には古城が建ちます。</p>
+  <div class="grid"><figure class="wide"><div class="ph" data-label="旧市街と丘の上の城"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/2021-07-28_Ljubljana-0881.jpg/1600px-2021-07-28_Ljubljana-0881.jpg" alt="旧市街と丘の上の城" loading="lazy"></div><figcaption><div class="cap-t">旧市街と丘の上の城</div><div class="cap-d">パステル色の街並みの上に、リュブリャナ城。</div></figcaption></figure><figure class=""><div class="ph" data-label="三本橋（トロモストヴィエ）"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Ljubljana_-_Tromostovje_(48764029462).jpg/1000px-Ljubljana_-_Tromostovje_(48764029462).jpg" alt="三本橋（トロモストヴィエ）" loading="lazy"></div><figcaption><div class="cap-t">三本橋（トロモストヴィエ）</div><div class="cap-d">橋が3本並んだ、街のシンボル的な広場。</div></figcaption></figure><figure class=""><div class="ph" data-label="竜の橋"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Dragon_Bridge_(Ljubljana)_(52932101473).jpg/1000px-Dragon_Bridge_(Ljubljana)_(52932101473).jpg" alt="竜の橋" loading="lazy"></div><figcaption><div class="cap-t">竜の橋</div><div class="cap-d">街の守り神である竜の像。記念写真の定番です。</div></figcaption></figure><figure class=""><div class="ph" data-label="リュブリャニツァ川沿い"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Ljubljanica_River_Waterfront_-_Ljubljana,_Slovenia_(7451177760).jpg/1000px-Ljubljanica_River_Waterfront_-_Ljubljana,_Slovenia_(7451177760).jpg" alt="リュブリャニツァ川沿い" loading="lazy"></div><figcaption><div class="cap-t">リュブリャニツァ川沿い</div><div class="cap-d">川べりはカフェだらけ。座って眺めるだけで楽しい。</div></figcaption></figure><figure class=""><div class="ph" data-label="城からの眺め"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Ljubljana_from_the_Castle_view_(1).jpg/1000px-Ljubljana_from_the_Castle_view_(1).jpg" alt="城からの眺め" loading="lazy"></div><figcaption><div class="cap-t">城からの眺め</div><div class="cap-d">オレンジ屋根の街の向こうにアルプスが見えます。</div></figcaption></figure></div>
+  <div class="tips"><div class="tips-h">歩きかたのヒント</div><ul><li>リュブリャナ城へはケーブルカーで登れます。歩いて坂を上る必要はありません。</li><li>旧市街は車が入らない歩行者天国。平らで歩きやすい街です。</li></ul></div>
+</section>
+<section class="page">
+  <div class="phead">
+    <div>
+      <div class="spot-day">9/26（土）</div>
+      <h2 class="spot-name">ブレッド湖</h2>
+      <div class="spot-local">BLED ／ スロベニア</div>
+    </div>
+    <div class="pnum">9 / 10</div>
+  </div>
+  <p class="spot-lead">アルプスのふもと、湖の真ん中に島と教会が浮かぶ絵はがきのような景色。旅の締めくくりです。</p>
+  <div class="grid"><figure class="wide"><div class="ph" data-label="湖に浮かぶ島と教会"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Aerial_image_of_Lake_Bled_(view_from_the_southwest).jpg/1600px-Aerial_image_of_Lake_Bled_(view_from_the_southwest).jpg" alt="湖に浮かぶ島と教会" loading="lazy"></div><figcaption><div class="cap-t">湖に浮かぶ島と教会</div><div class="cap-d">スロベニアを代表する景色。奥にはアルプスの山並み。</div></figcaption></figure><figure class=""><div class="ph" data-label="手漕ぎ舟プレトナ"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Pletna-Bled.JPG/1000px-Pletna-Bled.JPG" alt="手漕ぎ舟プレトナ" loading="lazy"></div><figcaption><div class="cap-t">手漕ぎ舟プレトナ</div><div class="cap-d">船頭さんが漕ぐ舟で島へ渡ります。揺れは穏やかです。</div></figcaption></figure><figure class=""><div class="ph" data-label="ブレッド城"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Bled_Castle.JPG/1000px-Bled_Castle.JPG" alt="ブレッド城" loading="lazy"></div><figcaption><div class="cap-t">ブレッド城</div><div class="cap-d">崖の上に建つ古城。バスや車で上まで行けます。</div></figcaption></figure><figure class=""><div class="ph" data-label="城のテラスからの眺め"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Bled-Lake_and_Island_from_Castle.JPG/1000px-Bled-Lake_and_Island_from_Castle.JPG" alt="城のテラスからの眺め" loading="lazy"></div><figcaption><div class="cap-t">城のテラスからの眺め</div><div class="cap-d">湖を真上から見下ろす、いちばんの絶景ポイント。</div></figcaption></figure><figure class=""><div class="ph" data-label="ヴィントガル峡谷"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Vintgar-gorge-bled-slovenia.jpg/1000px-Vintgar-gorge-bled-slovenia.jpg" alt="ヴィントガル峡谷" loading="lazy"></div><figcaption><div class="cap-t">ヴィントガル峡谷</div><div class="cap-d">エメラルド色の渓流沿いに木道が続きます。</div></figcaption></figure></div>
+  <div class="tips"><div class="tips-h">歩きかたのヒント</div><ul><li>島の教会までは階段が99段あります。舟から眺めるだけでも十分きれいです。</li><li>ブレッド名物のクリームケーキ（クレムナ・レジナ）は、湖を眺めながらぜひ。</li></ul></div>
+</section>
+<section class="page">
+  <div class="phead"><h2>写真について</h2><div class="pnum">10 / 10</div></div>
+  <p class="plead">
+    掲載した写真はすべて、ウィキメディア・コモンズで自由な利用が認められている
+    <b>実際に撮影された写真</b>です。AIで生成した画像は使っていません。
+    撮影者とライセンスは、下のリンク先のページで確認できます。
+  </p>
+  <ul class="credits"><li><a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_the_Old_Town_of_Dubrovnik_-_Croatia.jpg">Aerial view of the Old Town of Dubrovnik - Croatia.jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Main_street-Dubrovnik-2.jpg">Main street-Dubrovnik-2.jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Min%C4%8Deta_Fortress,_Dubrovnik_03.jpg">Minčeta Fortress, Dubrovnik 03.jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Cable_car_to_Mount_Srd_in_Dubrovnik,_Croatia_(48738636363).jpg">Cable car to Mount Srd in Dubrovnik, Croatia (48738636363).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Old_City_of_Dubrovnik-108773.jpg">Old City of Dubrovnik-108773.jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48608247353).jpg">Aerial view of Diocletian&#x27;s Palace in Split, Croatia (48608247353).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Peristyle_of_Diocletian&#x27;s_Palace,_Split_(11907776284).jpg">Peristyle of Diocletian&#x27;s Palace, Split (11907776284).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Cathedral_of_Saint_Domnius_-_Bell_tower_01.jpg">Cathedral of Saint Domnius - Bell tower 01.jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Golden_Gate_entrance_to_the_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48693923167).jpg">Golden Gate entrance to the Diocletian&#x27;s Palace in Split, Croatia (48693923167).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Riva_promenade_in_Split,_Croatia_(48693340418).jpg">Riva promenade in Split, Croatia (48693340418).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Plitvice_Lakes,_Croatia,_Lower_Lakes_Panorama.JPG">Plitvice Lakes, Croatia, Lower Lakes Panorama.JPG</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Veliki_Slap_in_Plitvice_Lakes_National_Park_in_Croatia.jpg">Veliki Slap in Plitvice Lakes National Park in Croatia.jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Wood_way_in_plitvicka.jpg">Wood way in plitvicka.jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Plitvice_Lakes,_Galovacki_buk.JPG">Plitvice Lakes, Galovacki buk.JPG</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Plitvice_Lakes,_Croatia,_Lower_Lakes.JPG">Plitvice Lakes, Croatia, Lower Lakes.JPG</a></li><li><a href="https://commons.wikimedia.org/wiki/File:St._Mark&#x27;s_Church,_Zagreb_01.jpg">St. Mark&#x27;s Church, Zagreb 01.jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Croatia-00448_-_Zagreb_Cathedral_(9286530138).jpg">Croatia-00448 - Zagreb Cathedral (9286530138).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Zagreb,_Dolac_market.JPG">Zagreb, Dolac market.JPG</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Zagreba%C4%8Dka_uspinja%C4%8Da_(Zagreb_Funicular)_(13024479974).jpg">Zagrebačka uspinjača (Zagreb Funicular) (13024479974).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Zagreb_(29255640143).jpg">Zagreb (29255640143).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:2021-07-28_Ljubljana-0881.jpg">2021-07-28 Ljubljana-0881.jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Ljubljana_-_Tromostovje_(48764029462).jpg">Ljubljana - Tromostovje (48764029462).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Dragon_Bridge_(Ljubljana)_(52932101473).jpg">Dragon Bridge (Ljubljana) (52932101473).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Ljubljanica_River_Waterfront_-_Ljubljana,_Slovenia_(7451177760).jpg">Ljubljanica River Waterfront - Ljubljana, Slovenia (7451177760).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Ljubljana_from_the_Castle_view_(1).jpg">Ljubljana from the Castle view (1).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Aerial_image_of_Lake_Bled_(view_from_the_southwest).jpg">Aerial image of Lake Bled (view from the southwest).jpg</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Pletna-Bled.JPG">Pletna-Bled.JPG</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Bled_Castle.JPG">Bled Castle.JPG</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Bled-Lake_and_Island_from_Castle.JPG">Bled-Lake and Island from Castle.JPG</a></li><li><a href="https://commons.wikimedia.org/wiki/File:Vintgar-gorge-bled-slovenia.jpg">Vintgar-gorge-bled-slovenia.jpg</a></li></ul>
+  <div class="foot">出典：Wikimedia Commons — https://commons.wikimedia.org/</div>
+</section>
+</body>
+</html>
