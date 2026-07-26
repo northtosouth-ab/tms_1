@@ -437,14 +437,15 @@ def esc(s):
 
 def photo_box(filename, width, label):
     return (f'<div class="ph" data-label="{esc(label)}">'
-            f'<img src="{esc(thumb(filename, width))}" alt="{esc(label)}" loading="lazy">'
+            f'<img src="{esc(thumb(filename, width))}" alt="{esc(label)}" loading="lazy"'
+            f' data-file="{esc(filename)}">'
             f"</div>")
 
 
 def build_cover():
     return f"""
 <section class="page cover">
-  <div class="cover-photo"><img src="{esc(thumb(COVER, 2000))}" alt="ドゥブロブニク旧市街"></div>
+  <div class="cover-photo"><img src="{esc(thumb(COVER, 2000))}" alt="ドゥブロブニク旧市街" data-file="{esc(COVER)}"></div>
   <div class="cover-veil"></div>
   <div class="cover-text">
     <div class="cover-eyebrow">2026年9月</div>
@@ -561,6 +562,38 @@ def build_credits():
 </section>"""
 
 
+# 写真が読み込めなかったとき、黙って空白になるのではなく赤枠とファイル名を出すための部品。
+# f-string の中に波括弧を書かなくて済むよう、定数として切り出してある。
+FAIL_CSS = """
+.imgfail{position:absolute; inset:0; background:#fdecea; border:2px dashed #c0392b;
+  color:#8b1a10; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:8px; font-size:12px; line-height:1.4; gap:4px; word-break:break-all;}
+.imgfail b{font-size:15px;}
+.cover-photo .imgfail{border-width:4px;}
+"""
+
+FAIL_JS = """<script>
+(function () {
+  function fail(im) {
+    if (im.dataset.failed) return;
+    im.dataset.failed = "1";
+    var d = document.createElement("div");
+    d.className = "imgfail";
+    d.innerHTML = "<b>写真が表示できません</b>";
+    var n = document.createElement("small");
+    n.textContent = im.dataset.file || im.alt || "";
+    d.appendChild(n);
+    im.parentNode.appendChild(d);
+    im.style.visibility = "hidden";
+  }
+  document.querySelectorAll("img").forEach(function (im) {
+    im.addEventListener("error", function () { fail(im); });
+    if (im.complete && im.naturalWidth === 0) fail(im);
+  });
+})();
+</script>"""
+
+
 def build():
     parts = [build_cover(), build_itinerary(), build_route()]
     parts += [build_spot(s, 4 + i) for i, s in enumerate(SPOTS)]
@@ -571,10 +604,11 @@ def build():
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>クロアチア＆スロベニア 2026年9月｜旅のご案内</title>
-<style>{CSS}</style>
+<style>{CSS}{FAIL_CSS}</style>
 </head>
 <body>
 {''.join(parts)}
+{FAIL_JS}
 </body>
 </html>
 """
@@ -605,6 +639,121 @@ def localize():
     print("出力:", out)
 
 
+CHECK_OUT = os.path.join(HERE, "photo_check.html")
+
+
+def all_photos():
+    """資料で使っている写真を（ページ名, ファイル名, 見出し）の順に並べて返す。"""
+    out = [("表紙", COVER, "表紙のドゥブロブニク")]
+    for sp in SPOTS:
+        for fn, cap, _sub, _big in sp["photos"]:
+            out.append((sp["name"], fn, cap))
+    seen, uniq = set(), []
+    for item in out:
+        if item[1] in seen:
+            continue
+        seen.add(item[1])
+        uniq.append(item)
+    return uniq
+
+
+
+CHECK_TEMPLATE = """<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>写真チェック｜クロアチア＆スロベニア</title>
+<style>
+body{font-family:"Yu Gothic UI","Yu Gothic","Hiragino Sans","Noto Sans JP",sans-serif;
+  margin:0; padding:24px; background:#f4f6f8; color:#1b2a38;}
+h1{font-size:22px; margin:0 0 4px;}
+p.lead{margin:0 0 16px; color:#5a6b7b; font-size:14px;}
+#tally{position:sticky; top:0; z-index:5; background:#fff; border:2px solid #1b4f72;
+  border-radius:10px; padding:12px 16px; font-size:17px; font-weight:700; margin-bottom:18px;}
+#tally .ng{color:#c0392b;}
+#tally .ok{color:#1e7a46;}
+.grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(210px,1fr)); gap:14px;}
+.c{margin:0; background:#fff; border-radius:10px; overflow:hidden;
+  box-shadow:0 1px 4px rgba(0,0,0,.12);}
+.c .ph{position:relative; width:100%; aspect-ratio:4/3; background:#dfe5ea;}
+.c img{width:100%; height:100%; object-fit:cover; display:block;}
+figcaption{padding:8px 10px; font-size:12px; line-height:1.5;}
+figcaption b{display:block; font-size:13px;}
+figcaption .pg{display:block; color:#5a6b7b;}
+figcaption a{color:#8a99a8; word-break:break-all; font-size:11px;}
+.imgfail{position:absolute; inset:0; background:#fdecea; border:2px dashed #c0392b;
+  color:#8b1a10; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:8px; font-size:11px; gap:4px; word-break:break-all;}
+.imgfail b{font-size:14px;}
+</style>
+</head>
+<body>
+<h1>写真チェック</h1>
+<p class="lead">資料で使う写真 __COUNT__ 枚です。すべて絵が出ていれば、そのまま印刷して大丈夫です。</p>
+<div id="tally">読み込み中…</div>
+<div class="grid">
+__CARDS__
+</div>
+<script>
+(function () {
+  var imgs = Array.prototype.slice.call(document.querySelectorAll("img"));
+  var bad = [];
+  function render() {
+    var t = document.getElementById("tally");
+    if (bad.length === 0) {
+      t.innerHTML = '<span class="ok">✓ ' + imgs.length + ' 枚すべて表示できました。</span>';
+    } else {
+      var head = bad.slice(0, 8).map(function (f) { return "・" + f; }).join("<br>");
+      var rest = bad.length > 8 ? "<br>・ほか " + (bad.length - 8) + " 枚" : "";
+      t.innerHTML = '<span class="ng">✕ ' + bad.length + ' 枚が表示できません：</span><br>'
+        + '<span style="font-weight:400;font-size:13px">' + head + rest + '</span>';
+    }
+  }
+  function fail(im) {
+    if (im.dataset.failed) return;
+    im.dataset.failed = "1";
+    bad.push(im.dataset.file);
+    var d = document.createElement("div");
+    d.className = "imgfail";
+    d.innerHTML = "<b>表示できません</b>";
+    im.parentNode.appendChild(d);
+    im.style.visibility = "hidden";
+    render();
+  }
+  imgs.forEach(function (im) {
+    im.addEventListener("error", function () { fail(im); });
+    im.addEventListener("load", render);
+    if (im.complete && im.naturalWidth === 0) fail(im);
+  });
+  render();
+})();
+</script>
+</body>
+</html>
+"""
+
+
+def build_check():
+    """写真が全部ちゃんと表示できるかを、ブラウザで一目で確かめるためのページ。
+
+    Python を動かさなくても、このファイルを開くだけで確認できる。
+    """
+    photos = all_photos()
+    cards = []
+    for i, (page_name, fn, cap) in enumerate(photos, 1):
+        cards.append(
+            f'<figure class="c"><div class="ph">'
+            f'<img src="{esc(thumb(fn, 400))}" alt="{esc(cap)}" data-file="{esc(fn)}">'
+            f'</div><figcaption><b>{i}. {esc(cap)}</b>'
+            f'<span class="pg">{esc(page_name)}</span>'
+            f'<a href="{esc(commons_page(fn))}" target="_blank">{esc(fn)}</a>'
+            f"</figcaption></figure>"
+        )
+    return (CHECK_TEMPLATE
+            .replace("__COUNT__", str(len(photos)))
+            .replace("__CARDS__", "\n".join(cards)))
+
+
 if __name__ == "__main__":
     if "--localize" in sys.argv:
         localize()
@@ -612,3 +761,6 @@ if __name__ == "__main__":
         with open(OUT, "w", encoding="utf-8") as f:
             f.write(build())
         print("出力:", OUT, f"（全{TOTAL}ページ）")
+        with open(CHECK_OUT, "w", encoding="utf-8") as f:
+            f.write(build_check())
+        print("出力:", CHECK_OUT, "（写真の確認用）")
