@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>写真の原因切り分け</title>
+<style>
+body{font-family:"Yu Gothic UI","Yu Gothic","Hiragino Sans",sans-serif;
+  margin:0; padding:24px; background:#f4f6f8; color:#1b2a38;}
+h1{font-size:21px; margin:0 0 12px;}
+#verdict{position:sticky; top:0; z-index:5; background:#fff; border:2px solid #1b4f72;
+  border-radius:10px; padding:14px 18px; margin-bottom:18px; font-size:15px; line-height:1.7;}
+#verdict .big{font-size:18px; font-weight:800; display:block; margin-bottom:6px;}
+.ok{color:#1e7a46;} .ng{color:#c0392b;}
+.ctrl{background:#fff; border-radius:10px; padding:12px 16px; margin-bottom:16px;
+  display:flex; align-items:center; gap:14px; font-size:14px;}
+.ctrl img{width:120px; border:1px solid #ccd;}
+table{border-collapse:collapse; background:#fff; width:100%;
+  box-shadow:0 1px 4px rgba(0,0,0,.1); border-radius:10px; overflow:hidden;}
+th,td{border-bottom:1px solid #e3e8ec; padding:8px 10px; text-align:left; vertical-align:middle;}
+th{background:#eef3f7; font-size:13px; position:sticky; top:96px;}
+td.n{color:#8a99a8; font-size:12px; width:28px;}
+td.cap{font-size:13px; max-width:280px;}
+td.cap a{color:#8a99a8; font-size:11px; word-break:break-all;}
+img.t{width:150px; height:113px; object-fit:cover; background:#dfe5ea; display:block;}
+img.t.bad{outline:3px solid #c0392b; opacity:.25;}
+</style>
+</head>
+<body>
+<h1>写真が出ない原因の切り分け</h1>
+
+<div id="verdict">判定中…</div>
+
+<div class="ctrl">
+  <img id="control" src="https://commons.wikimedia.org/wiki/Special:FilePath/Example.jpg?width=320">
+  <div><b>対照実験</b><br>
+  コモンズに確実にある標準テスト画像です。<br>
+  <b>これが出ないなら、ファイル名ではなくネットワークの問題です。</b></div>
+</div>
+
+<table>
+<thead><tr><th></th><th>写真</th><th>MD5方式<br>(upload.wikimedia.org)</th>
+<th>FilePath方式<br>(commons.wikimedia.org)</th></tr></thead>
+<tbody>
+<tr><td class="n">1</td><td class="cap">表紙のドゥブロブニク<br><a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_the_Old_Town_of_Dubrovnik_-_Croatia.jpg" target="_blank">Aerial view of the Old Town of Dubrovnik - Croatia.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Aerial_view_of_the_Old_Town_of_Dubrovnik_-_Croatia.jpg/320px-Aerial_view_of_the_Old_Town_of_Dubrovnik_-_Croatia.jpg" data-file="Aerial view of the Old Town of Dubrovnik - Croatia.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_view_of_the_Old_Town_of_Dubrovnik_-_Croatia.jpg?width=320" data-file="Aerial view of the Old Town of Dubrovnik - Croatia.jpg"></td></tr>
+<tr><td class="n">2</td><td class="cap">プラツァ通り<br><a href="https://commons.wikimedia.org/wiki/File:Main_street-Dubrovnik-2.jpg" target="_blank">Main street-Dubrovnik-2.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/Main_street-Dubrovnik-2.jpg/320px-Main_street-Dubrovnik-2.jpg" data-file="Main street-Dubrovnik-2.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Main_street-Dubrovnik-2.jpg?width=320" data-file="Main street-Dubrovnik-2.jpg"></td></tr>
+<tr><td class="n">3</td><td class="cap">ミンチェタ要塞<br><a href="https://commons.wikimedia.org/wiki/File:Min%C4%8Deta_Fortress,_Dubrovnik_03.jpg" target="_blank">Minčeta Fortress, Dubrovnik 03.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7f/Min%C4%8Deta_Fortress,_Dubrovnik_03.jpg/320px-Min%C4%8Deta_Fortress,_Dubrovnik_03.jpg" data-file="Minčeta Fortress, Dubrovnik 03.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Min%C4%8Deta_Fortress,_Dubrovnik_03.jpg?width=320" data-file="Minčeta Fortress, Dubrovnik 03.jpg"></td></tr>
+<tr><td class="n">4</td><td class="cap">スルジ山のケーブルカー<br><a href="https://commons.wikimedia.org/wiki/File:Cable_car_to_Mount_Srd_in_Dubrovnik,_Croatia_(48738636363).jpg" target="_blank">Cable car to Mount Srd in Dubrovnik, Croatia (48738636363).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/49/Cable_car_to_Mount_Srd_in_Dubrovnik,_Croatia_(48738636363).jpg/320px-Cable_car_to_Mount_Srd_in_Dubrovnik,_Croatia_(48738636363).jpg" data-file="Cable car to Mount Srd in Dubrovnik, Croatia (48738636363).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cable_car_to_Mount_Srd_in_Dubrovnik,_Croatia_(48738636363).jpg?width=320" data-file="Cable car to Mount Srd in Dubrovnik, Croatia (48738636363).jpg"></td></tr>
+<tr><td class="n">5</td><td class="cap">石畳の路地<br><a href="https://commons.wikimedia.org/wiki/File:Old_City_of_Dubrovnik-108773.jpg" target="_blank">Old City of Dubrovnik-108773.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c9/Old_City_of_Dubrovnik-108773.jpg/320px-Old_City_of_Dubrovnik-108773.jpg" data-file="Old City of Dubrovnik-108773.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Old_City_of_Dubrovnik-108773.jpg?width=320" data-file="Old City of Dubrovnik-108773.jpg"></td></tr>
+<tr><td class="n">6</td><td class="cap">ディオクレティアヌス宮殿<br><a href="https://commons.wikimedia.org/wiki/File:Aerial_view_of_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48608247353).jpg" target="_blank">Aerial view of Diocletian&#x27;s Palace in Split, Croatia (48608247353).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Aerial_view_of_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48608247353).jpg/320px-Aerial_view_of_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48608247353).jpg" data-file="Aerial view of Diocletian&#x27;s Palace in Split, Croatia (48608247353).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_view_of_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48608247353).jpg?width=320" data-file="Aerial view of Diocletian&#x27;s Palace in Split, Croatia (48608247353).jpg"></td></tr>
+<tr><td class="n">7</td><td class="cap">列柱廊（ペリスティル）<br><a href="https://commons.wikimedia.org/wiki/File:Peristyle_of_Diocletian&#x27;s_Palace,_Split_(11907776284).jpg" target="_blank">Peristyle of Diocletian&#x27;s Palace, Split (11907776284).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d1/Peristyle_of_Diocletian&#x27;s_Palace,_Split_(11907776284).jpg/320px-Peristyle_of_Diocletian&#x27;s_Palace,_Split_(11907776284).jpg" data-file="Peristyle of Diocletian&#x27;s Palace, Split (11907776284).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Peristyle_of_Diocletian&#x27;s_Palace,_Split_(11907776284).jpg?width=320" data-file="Peristyle of Diocletian&#x27;s Palace, Split (11907776284).jpg"></td></tr>
+<tr><td class="n">8</td><td class="cap">聖ドムニウス大聖堂の鐘楼<br><a href="https://commons.wikimedia.org/wiki/File:Cathedral_of_Saint_Domnius_-_Bell_tower_01.jpg" target="_blank">Cathedral of Saint Domnius - Bell tower 01.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/af/Cathedral_of_Saint_Domnius_-_Bell_tower_01.jpg/320px-Cathedral_of_Saint_Domnius_-_Bell_tower_01.jpg" data-file="Cathedral of Saint Domnius - Bell tower 01.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Cathedral_of_Saint_Domnius_-_Bell_tower_01.jpg?width=320" data-file="Cathedral of Saint Domnius - Bell tower 01.jpg"></td></tr>
+<tr><td class="n">9</td><td class="cap">黄金の門<br><a href="https://commons.wikimedia.org/wiki/File:Golden_Gate_entrance_to_the_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48693923167).jpg" target="_blank">Golden Gate entrance to the Diocletian&#x27;s Palace in Split, Croatia (48693923167).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ef/Golden_Gate_entrance_to_the_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48693923167).jpg/320px-Golden_Gate_entrance_to_the_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48693923167).jpg" data-file="Golden Gate entrance to the Diocletian&#x27;s Palace in Split, Croatia (48693923167).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Golden_Gate_entrance_to_the_Diocletian&#x27;s_Palace_in_Split,_Croatia_(48693923167).jpg?width=320" data-file="Golden Gate entrance to the Diocletian&#x27;s Palace in Split, Croatia (48693923167).jpg"></td></tr>
+<tr><td class="n">10</td><td class="cap">海沿いのリヴァ通り<br><a href="https://commons.wikimedia.org/wiki/File:Riva_promenade_in_Split,_Croatia_(48693340418).jpg" target="_blank">Riva promenade in Split, Croatia (48693340418).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Riva_promenade_in_Split,_Croatia_(48693340418).jpg/320px-Riva_promenade_in_Split,_Croatia_(48693340418).jpg" data-file="Riva promenade in Split, Croatia (48693340418).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Riva_promenade_in_Split,_Croatia_(48693340418).jpg?width=320" data-file="Riva promenade in Split, Croatia (48693340418).jpg"></td></tr>
+<tr><td class="n">11</td><td class="cap">湖が段々につながる眺め<br><a href="https://commons.wikimedia.org/wiki/File:Plitvice_Lakes,_Croatia,_Lower_Lakes_Panorama.JPG" target="_blank">Plitvice Lakes, Croatia, Lower Lakes Panorama.JPG</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/22/Plitvice_Lakes,_Croatia,_Lower_Lakes_Panorama.JPG/320px-Plitvice_Lakes,_Croatia,_Lower_Lakes_Panorama.JPG" data-file="Plitvice Lakes, Croatia, Lower Lakes Panorama.JPG"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Plitvice_Lakes,_Croatia,_Lower_Lakes_Panorama.JPG?width=320" data-file="Plitvice Lakes, Croatia, Lower Lakes Panorama.JPG"></td></tr>
+<tr><td class="n">12</td><td class="cap">大滝（ヴェリキ・スラップ）<br><a href="https://commons.wikimedia.org/wiki/File:Veliki_Slap_in_Plitvice_Lakes_National_Park_in_Croatia.jpg" target="_blank">Veliki Slap in Plitvice Lakes National Park in Croatia.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Veliki_Slap_in_Plitvice_Lakes_National_Park_in_Croatia.jpg/320px-Veliki_Slap_in_Plitvice_Lakes_National_Park_in_Croatia.jpg" data-file="Veliki Slap in Plitvice Lakes National Park in Croatia.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Veliki_Slap_in_Plitvice_Lakes_National_Park_in_Croatia.jpg?width=320" data-file="Veliki Slap in Plitvice Lakes National Park in Croatia.jpg"></td></tr>
+<tr><td class="n">13</td><td class="cap">湖の上にかかる木道<br><a href="https://commons.wikimedia.org/wiki/File:Wood_way_in_plitvicka.jpg" target="_blank">Wood way in plitvicka.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Wood_way_in_plitvicka.jpg/320px-Wood_way_in_plitvicka.jpg" data-file="Wood way in plitvicka.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Wood_way_in_plitvicka.jpg?width=320" data-file="Wood way in plitvicka.jpg"></td></tr>
+<tr><td class="n">14</td><td class="cap">いくつも重なる小さな滝<br><a href="https://commons.wikimedia.org/wiki/File:Plitvice_Lakes,_Galovacki_buk.JPG" target="_blank">Plitvice Lakes, Galovacki buk.JPG</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Plitvice_Lakes,_Galovacki_buk.JPG/320px-Plitvice_Lakes,_Galovacki_buk.JPG" data-file="Plitvice Lakes, Galovacki buk.JPG"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Plitvice_Lakes,_Galovacki_buk.JPG?width=320" data-file="Plitvice Lakes, Galovacki buk.JPG"></td></tr>
+<tr><td class="n">15</td><td class="cap">澄みきった湖面<br><a href="https://commons.wikimedia.org/wiki/File:Plitvice_Lakes,_Croatia,_Lower_Lakes.JPG" target="_blank">Plitvice Lakes, Croatia, Lower Lakes.JPG</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/Plitvice_Lakes,_Croatia,_Lower_Lakes.JPG/320px-Plitvice_Lakes,_Croatia,_Lower_Lakes.JPG" data-file="Plitvice Lakes, Croatia, Lower Lakes.JPG"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Plitvice_Lakes,_Croatia,_Lower_Lakes.JPG?width=320" data-file="Plitvice Lakes, Croatia, Lower Lakes.JPG"></td></tr>
+<tr><td class="n">16</td><td class="cap">聖マルコ教会<br><a href="https://commons.wikimedia.org/wiki/File:St._Mark&#x27;s_Church,_Zagreb_01.jpg" target="_blank">St. Mark&#x27;s Church, Zagreb 01.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/39/St._Mark&#x27;s_Church,_Zagreb_01.jpg/320px-St._Mark&#x27;s_Church,_Zagreb_01.jpg" data-file="St. Mark&#x27;s Church, Zagreb 01.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/St._Mark&#x27;s_Church,_Zagreb_01.jpg?width=320" data-file="St. Mark&#x27;s Church, Zagreb 01.jpg"></td></tr>
+<tr><td class="n">17</td><td class="cap">ザグレブ大聖堂<br><a href="https://commons.wikimedia.org/wiki/File:Croatia-00448_-_Zagreb_Cathedral_(9286530138).jpg" target="_blank">Croatia-00448 - Zagreb Cathedral (9286530138).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Croatia-00448_-_Zagreb_Cathedral_(9286530138).jpg/320px-Croatia-00448_-_Zagreb_Cathedral_(9286530138).jpg" data-file="Croatia-00448 - Zagreb Cathedral (9286530138).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Croatia-00448_-_Zagreb_Cathedral_(9286530138).jpg?width=320" data-file="Croatia-00448 - Zagreb Cathedral (9286530138).jpg"></td></tr>
+<tr><td class="n">18</td><td class="cap">ドラツ市場<br><a href="https://commons.wikimedia.org/wiki/File:Zagreb,_Dolac_market.JPG" target="_blank">Zagreb, Dolac market.JPG</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Zagreb,_Dolac_market.JPG/320px-Zagreb,_Dolac_market.JPG" data-file="Zagreb, Dolac market.JPG"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Zagreb,_Dolac_market.JPG?width=320" data-file="Zagreb, Dolac market.JPG"></td></tr>
+<tr><td class="n">19</td><td class="cap">世界一短いケーブルカー<br><a href="https://commons.wikimedia.org/wiki/File:Zagreba%C4%8Dka_uspinja%C4%8Da_(Zagreb_Funicular)_(13024479974).jpg" target="_blank">Zagrebačka uspinjača (Zagreb Funicular) (13024479974).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d6/Zagreba%C4%8Dka_uspinja%C4%8Da_(Zagreb_Funicular)_(13024479974).jpg/320px-Zagreba%C4%8Dka_uspinja%C4%8Da_(Zagreb_Funicular)_(13024479974).jpg" data-file="Zagrebačka uspinjača (Zagreb Funicular) (13024479974).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Zagreba%C4%8Dka_uspinja%C4%8Da_(Zagreb_Funicular)_(13024479974).jpg?width=320" data-file="Zagrebačka uspinjača (Zagreb Funicular) (13024479974).jpg"></td></tr>
+<tr><td class="n">20</td><td class="cap">イェラチッチ広場<br><a href="https://commons.wikimedia.org/wiki/File:Zagreb_(29255640143).jpg" target="_blank">Zagreb (29255640143).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/cd/Zagreb_(29255640143).jpg/320px-Zagreb_(29255640143).jpg" data-file="Zagreb (29255640143).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Zagreb_(29255640143).jpg?width=320" data-file="Zagreb (29255640143).jpg"></td></tr>
+<tr><td class="n">21</td><td class="cap">旧市街と丘の上の城<br><a href="https://commons.wikimedia.org/wiki/File:2021-07-28_Ljubljana-0881.jpg" target="_blank">2021-07-28 Ljubljana-0881.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/f6/2021-07-28_Ljubljana-0881.jpg/320px-2021-07-28_Ljubljana-0881.jpg" data-file="2021-07-28 Ljubljana-0881.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/2021-07-28_Ljubljana-0881.jpg?width=320" data-file="2021-07-28 Ljubljana-0881.jpg"></td></tr>
+<tr><td class="n">22</td><td class="cap">三本橋（トロモストヴィエ）<br><a href="https://commons.wikimedia.org/wiki/File:Ljubljana_-_Tromostovje_(48764029462).jpg" target="_blank">Ljubljana - Tromostovje (48764029462).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Ljubljana_-_Tromostovje_(48764029462).jpg/320px-Ljubljana_-_Tromostovje_(48764029462).jpg" data-file="Ljubljana - Tromostovje (48764029462).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Ljubljana_-_Tromostovje_(48764029462).jpg?width=320" data-file="Ljubljana - Tromostovje (48764029462).jpg"></td></tr>
+<tr><td class="n">23</td><td class="cap">竜の橋<br><a href="https://commons.wikimedia.org/wiki/File:Dragon_Bridge_(Ljubljana)_(52932101473).jpg" target="_blank">Dragon Bridge (Ljubljana) (52932101473).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/d/d9/Dragon_Bridge_(Ljubljana)_(52932101473).jpg/320px-Dragon_Bridge_(Ljubljana)_(52932101473).jpg" data-file="Dragon Bridge (Ljubljana) (52932101473).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Dragon_Bridge_(Ljubljana)_(52932101473).jpg?width=320" data-file="Dragon Bridge (Ljubljana) (52932101473).jpg"></td></tr>
+<tr><td class="n">24</td><td class="cap">リュブリャニツァ川沿い<br><a href="https://commons.wikimedia.org/wiki/File:Ljubljanica_River_Waterfront_-_Ljubljana,_Slovenia_(7451177760).jpg" target="_blank">Ljubljanica River Waterfront - Ljubljana, Slovenia (7451177760).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/Ljubljanica_River_Waterfront_-_Ljubljana,_Slovenia_(7451177760).jpg/320px-Ljubljanica_River_Waterfront_-_Ljubljana,_Slovenia_(7451177760).jpg" data-file="Ljubljanica River Waterfront - Ljubljana, Slovenia (7451177760).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Ljubljanica_River_Waterfront_-_Ljubljana,_Slovenia_(7451177760).jpg?width=320" data-file="Ljubljanica River Waterfront - Ljubljana, Slovenia (7451177760).jpg"></td></tr>
+<tr><td class="n">25</td><td class="cap">城からの眺め<br><a href="https://commons.wikimedia.org/wiki/File:Ljubljana_from_the_Castle_view_(1).jpg" target="_blank">Ljubljana from the Castle view (1).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a8/Ljubljana_from_the_Castle_view_(1).jpg/320px-Ljubljana_from_the_Castle_view_(1).jpg" data-file="Ljubljana from the Castle view (1).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Ljubljana_from_the_Castle_view_(1).jpg?width=320" data-file="Ljubljana from the Castle view (1).jpg"></td></tr>
+<tr><td class="n">26</td><td class="cap">湖に浮かぶ島と教会<br><a href="https://commons.wikimedia.org/wiki/File:Aerial_image_of_Lake_Bled_(view_from_the_southwest).jpg" target="_blank">Aerial image of Lake Bled (view from the southwest).jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Aerial_image_of_Lake_Bled_(view_from_the_southwest).jpg/320px-Aerial_image_of_Lake_Bled_(view_from_the_southwest).jpg" data-file="Aerial image of Lake Bled (view from the southwest).jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Aerial_image_of_Lake_Bled_(view_from_the_southwest).jpg?width=320" data-file="Aerial image of Lake Bled (view from the southwest).jpg"></td></tr>
+<tr><td class="n">27</td><td class="cap">手漕ぎ舟プレトナ<br><a href="https://commons.wikimedia.org/wiki/File:Pletna-Bled.JPG" target="_blank">Pletna-Bled.JPG</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Pletna-Bled.JPG/320px-Pletna-Bled.JPG" data-file="Pletna-Bled.JPG"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Pletna-Bled.JPG?width=320" data-file="Pletna-Bled.JPG"></td></tr>
+<tr><td class="n">28</td><td class="cap">ブレッド城<br><a href="https://commons.wikimedia.org/wiki/File:Bled_Castle.JPG" target="_blank">Bled Castle.JPG</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Bled_Castle.JPG/320px-Bled_Castle.JPG" data-file="Bled Castle.JPG"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bled_Castle.JPG?width=320" data-file="Bled Castle.JPG"></td></tr>
+<tr><td class="n">29</td><td class="cap">城のテラスからの眺め<br><a href="https://commons.wikimedia.org/wiki/File:Bled-Lake_and_Island_from_Castle.JPG" target="_blank">Bled-Lake and Island from Castle.JPG</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Bled-Lake_and_Island_from_Castle.JPG/320px-Bled-Lake_and_Island_from_Castle.JPG" data-file="Bled-Lake and Island from Castle.JPG"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Bled-Lake_and_Island_from_Castle.JPG?width=320" data-file="Bled-Lake and Island from Castle.JPG"></td></tr>
+<tr><td class="n">30</td><td class="cap">ヴィントガル峡谷<br><a href="https://commons.wikimedia.org/wiki/File:Vintgar-gorge-bled-slovenia.jpg" target="_blank">Vintgar-gorge-bled-slovenia.jpg</a></td><td><img class="t md5" src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Vintgar-gorge-bled-slovenia.jpg/320px-Vintgar-gorge-bled-slovenia.jpg" data-file="Vintgar-gorge-bled-slovenia.jpg"></td><td><img class="t fp" src="https://commons.wikimedia.org/wiki/Special:FilePath/Vintgar-gorge-bled-slovenia.jpg?width=320" data-file="Vintgar-gorge-bled-slovenia.jpg"></td></tr>
+</tbody>
+</table>
+
+<script>
+(function () {
+  var state = { md5: {ok: 0, ng: 0}, fp: {ok: 0, ng: 0}, control: null };
+
+  function verdict() {
+    var v = document.getElementById("verdict");
+    var m = state.md5, f = state.fp;
+    var total = document.querySelectorAll("img.t.md5").length;
+    var head;
+    if (state.control === false) {
+      head = '<span class="big ng">Wikimediaに接続できていません。</span>'
+        + 'ファイル名ではなくネットワーク（社内プロキシ・セキュリティソフト・DNS）が'
+        + '原因です。ブラウザで commons.wikimedia.org が開けるか確かめてください。';
+    } else if (state.control === true && f.ok === 0 && m.ok === 0 && (f.ng + m.ng) > 0) {
+      head = '<span class="big ng">Wikimediaには繋がっていますが、指定した写真が1枚も存在しません。</span>'
+        + 'ファイル名が実在しないということです。写真を選び直す必要があります。';
+    } else if (f.ok > 0 && m.ok === 0) {
+      head = '<span class="big ng">URLの組み立て方（MD5）が間違っています。</span>'
+        + 'FilePath方式では表示できているので、写真自体は実在します。'
+        + 'FilePath方式に切り替えれば直ります。';
+    } else if (f.ok > 0 || m.ok > 0) {
+      head = '<span class="big ok">一部は表示できています。</span>'
+        + '出ないものだけ差し替えれば大丈夫です。';
+    } else {
+      head = '<span class="big">読み込み中…</span>';
+    }
+    v.innerHTML = head
+      + '<hr style="border:0;border-top:1px solid #e3e8ec;margin:10px 0">'
+      + '対照実験：' + (state.control === true ? '<b class="ok">表示OK</b>'
+          : state.control === false ? '<b class="ng">表示できず</b>' : '確認中')
+      + '　／　MD5方式：<b class="' + (m.ok ? 'ok' : 'ng') + '">' + m.ok + ' / ' + total + '</b>'
+      + '　／　FilePath方式：<b class="' + (f.ok ? 'ok' : 'ng') + '">' + f.ok + ' / ' + total + '</b>';
+  }
+
+  var ctrl = document.getElementById("control");
+  ctrl.addEventListener("load", function () { state.control = true; verdict(); });
+  ctrl.addEventListener("error", function () { state.control = false; verdict(); });
+  if (ctrl.complete) { state.control = ctrl.naturalWidth > 0; }
+
+  document.querySelectorAll("img.t").forEach(function (im) {
+    var key = im.classList.contains("md5") ? "md5" : "fp";
+    function done(good) {
+      if (im.dataset.done) return;
+      im.dataset.done = "1";
+      state[key][good ? "ok" : "ng"]++;
+      if (!good) im.classList.add("bad");
+      verdict();
+    }
+    im.addEventListener("load", function () { done(true); });
+    im.addEventListener("error", function () { done(false); });
+    if (im.complete) done(im.naturalWidth > 0);
+  });
+
+  verdict();
+})();
+</script>
+</body>
+</html>
