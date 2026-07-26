@@ -54,17 +54,21 @@ a{color:inherit;}
 
 /* ---------- 行程一覧 ---------- */
 .itin{flex:0 0 auto; width:100%; border-collapse:collapse;}
-.itin td{padding:3px 12px; border-bottom:1px solid var(--line); vertical-align:middle;}
+.itin td{padding:2px 12px; border-bottom:1px solid var(--line); vertical-align:middle;}
+.itin th{padding:0 12px 4px; font-size:15px; color:var(--sub); text-align:left;
+  font-weight:700; border-bottom:2px solid var(--line);}
+.itin th.d-stay{text-align:right;}
 .itin tr.japan{background:#fff3e6;}
 .itin tr.stay{background:var(--sea-l);}
 .d-date{font-weight:800; font-size:23px; white-space:nowrap; width:104px; color:var(--sea);}
 .d-dow{font-size:16px; color:var(--sub); font-weight:700; width:30px; text-align:center;}
-.d-place{font-weight:700; font-size:21px;}
+.d-place{font-weight:700; font-size:20px;}
 .d-note{font-size:16px; color:var(--sub); line-height:1.4;}
+.d-stay{font-size:14px; color:var(--sub); width:180px; line-height:1.35; text-align:right;}
 .legend{flex:0 0 auto; margin-top:10px; font-size:17px; color:var(--sub);
         display:flex; gap:26px; flex-wrap:wrap;}
 .legend span{display:flex; align-items:center; gap:9px;}
-.chip{width:26px; height:16px; border-radius:4px; border:1px solid var(--line); display:inline-block;}
+.chip{width:22px; height:12px; vertical-align:middle; border-radius:4px; border:1px solid var(--line); display:inline-block;}
 
 /* ---------- 道順 ---------- */
 .route{flex:0 0 auto; list-style:none; padding:0; margin:0;}
@@ -82,11 +86,11 @@ a{color:inherit;}
 .rline{font-size:16px; color:#fff; background:var(--sea); display:inline-block;
   padding:2px 11px; border-radius:5px; font-weight:700;}
 .route li.goal .rline{background:var(--sun);}
-.rplace{font-size:23px; font-weight:800; margin:1px 0 2px;}
-.rdetail{font-size:17px; line-height:1.55; color:var(--ink);}
+.rplace{font-size:22px; font-weight:800; margin:1px 0 2px;}
+.rdetail{font-size:16px; line-height:1.55; color:var(--ink);}
 
 .callout{flex:0 0 auto; background:var(--sea-l); border-left:9px solid var(--sea);
-  padding:11px 18px; border-radius:0 8px 8px 0; font-size:17px; line-height:1.6;}
+  padding:10px 18px; border-radius:0 8px 8px 0; font-size:16px; line-height:1.55;}
 .callout b{color:var(--sea);}
 .ctitle{font-size:21px; font-weight:800; color:var(--sea); margin-bottom:3px;}
 .spacer{flex:1 1 auto; min-height:0;}
@@ -176,22 +180,18 @@ figure.wide .cap-d{font-size:18px;}
 <section class="page">
   <div class="phead"><h2>ぜんたいの行程</h2><div class="pnum">2 / 10</div></div>
   <p class="plead">9月18日から27日までの10日間。おおまかな流れです。</p>
-  <table class="itin"><tbody><tr class="japan"><td class="d-date">9/18</td><td class="d-dow">金</td><td><div class="d-place">大阪 → 東京</div><div class="d-note">香里園から新幹線で上京。夜は息子の家に宿泊。</div></td></tr><tr class="move"><td class="d-date">9/19</td><td class="d-dow">土</td><td><div class="d-place">成田 → ドゥブロブニク</div><div class="d-note">早朝に自宅を出発。乗継便でクロアチアへ。</div></td></tr><tr class="stay"><td class="d-date">9/20</td><td class="d-dow">日</td><td><div class="d-place">ドゥブロブニク</div><div class="d-note">旧市街と城壁、スルジ山からの眺め。</div></td></tr><tr class="move"><td class="d-date">9/21</td><td class="d-dow">月</td><td><div class="d-place">ドゥブロブニク → スプリト</div><div class="d-note">アドリア海沿いを北へ。</div></td></tr><tr class="move"><td class="d-date">9/22</td><td class="d-dow">火</td><td><div class="d-place">スプリト → プリトヴィッツェ</div><div class="d-note">宮殿の街を歩いてから、内陸の国立公園へ。</div></td></tr><tr class="stay"><td class="d-date">9/23</td><td class="d-dow">水</td><td><div class="d-place">プリトヴィッツェ国立公園</div><div class="d-note">湖と滝をめぐる一日。</div></td></tr><tr class="move"><td class="d-date">9/24</td><td class="d-dow">木</td><td><div class="d-place">プリトヴィッツェ → ザグレブ</div><div class="d-note">首都ザグレブの旧市街を観光。</div></td></tr><tr class="move"><td class="d-date">9/25</td><td class="d-dow">金</td><td><div class="d-place">ザグレブ → リュブリャナ</div><div class="d-note">国境を越えてスロベニアへ。</div></td></tr><tr class="move"><td class="d-date">9/26</td><td class="d-dow">土</td><td><div class="d-place">ブレッド湖 → 帰国の途へ</div><div class="d-note">アルプスの湖を訪ねてから空港へ。</div></td></tr><tr class="japan"><td class="d-date">9/27</td><td class="d-dow">日</td><td><div class="d-place">日本 到着</div><div class="d-note">おつかれさまでした。</div></td></tr></tbody></table>
-  <div class="legend">
-    <span><i class="chip" style="background:#fff3e6"></i>日本国内・移動が中心の日</span>
-    <span><i class="chip" style="background:#e7f1f8"></i>同じ町に連泊・観光が中心の日</span>
-  </div>
+  <table class="itin"><thead><tr><th colspan="3">日付と行き先</th><th class="d-stay">泊まる宿</th></tr></thead><tbody><tr class="japan"><td class="d-date">9/18</td><td class="d-dow">金</td><td><div class="d-place">大阪 → 東京</div><div class="d-note">香里園から新幹線で上京。</div></td><td class="d-stay">息子の家</td></tr><tr class="move"><td class="d-date">9/19</td><td class="d-dow">土</td><td><div class="d-place">成田 → ドゥブロブニク</div><div class="d-note">10:25 成田発 → イスタンブール乗継 → 19:55 着</div></td><td class="d-stay">Guest House Nenada</td></tr><tr class="stay"><td class="d-date">9/20</td><td class="d-dow">日</td><td><div class="d-place">ドゥブロブニク</div><div class="d-note">終日、旧市街と城壁めぐり。</div></td><td class="d-stay">Guest House Nenada</td></tr><tr class="move"><td class="d-date">9/21</td><td class="d-dow">月</td><td><div class="d-place">ドゥブロブニク → スプリト</div><div class="d-note">8:00 発 → 13:25 スプリト着</div></td><td class="d-stay">Villa Spalatina</td></tr><tr class="move"><td class="d-date">9/22</td><td class="d-dow">火</td><td><div class="d-place">スプリト → プリトヴィッツェ</div><div class="d-note">10:15 発 → 14:45 ムキニェ着</div></td><td class="d-stay">House Dado</td></tr><tr class="stay"><td class="d-date">9/23</td><td class="d-dow">水</td><td><div class="d-place">プリトヴィッツェ国立公園</div><div class="d-note">9:00 から、湖と滝をめぐる一日。</div></td><td class="d-stay">House Dado</td></tr><tr class="move"><td class="d-date">9/24</td><td class="d-dow">木</td><td><div class="d-place">プリトヴィッツェ → ザグレブ</div><div class="d-note">9:45 発 → 12:00 ザグレブ着</div></td><td class="d-stay">Hostel Temza</td></tr><tr class="move"><td class="d-date">9/25</td><td class="d-dow">金</td><td><div class="d-place">リュブリャナ ＆ ブレッド湖</div><div class="d-note">7:30 ザグレブ発 → 9:40 着。昼はブレッド湖へ。</div></td><td class="d-stay">Apartma N&#x27;Poznam zupa</td></tr><tr class="move"><td class="d-date">9/26</td><td class="d-dow">土</td><td><div class="d-place">リュブリャナ → 帰国の途へ</div><div class="d-note">9:30 発 → ヘルシンキ乗継 → 17:45 発</div></td><td class="d-stay">機内泊</td></tr><tr class="japan"><td class="d-date">9/27</td><td class="d-dow">日</td><td><div class="d-place">成田 到着 ／ 母は大阪へ</div><div class="d-note">13:05 成田着。おつかれさまでした。</div></td><td class="d-stay">—</td></tr></tbody></table>
   <div class="spacer"></div>
   <div class="callout">
     <div class="ctitle">持ちものメモ</div>
     パスポート ／ 常備薬は多めに ／ 歩きやすい靴 ／ 薄手の上着（朝晩は15度ほど）<br>
     日本との時差は <b>7時間</b>（日本のほうが進んでいます）。
   </div>
-  <div class="foot">※ 便名・時刻・宿は変わることがあります。</div>
+  <div class="foot"><i class="chip" style="background:#fff3e6"></i> 日本国内　<i class="chip" style="background:#e7f1f8"></i> 同じ町に連泊し、観光が中心の日　／ 便名・時刻・宿は変わることがあります。</div>
 </section>
 <section class="page">
   <div class="phead"><h2>9月18日（金）　香里園 → 不動前</h2><div class="pnum">3 / 10</div></div>
-  <p class="plead">東京へ移動して、息子の家に泊まります。旅行かばんはこの日から持って出ます。</p>
+  <p class="plead">東京へ移動して、息子の家に泊まります。旅行かばんはこの日から。</p>
   <ol class="route"><li class="start"><div class="bullet">1</div><div class="rbody"><div class="rtop"><span class="rtime">13:35 ごろ 発</span><span class="rline">京阪本線・急行　淀屋橋ゆき</span></div><div class="rplace">香里園駅</div><div class="rdetail">いつもの香里園駅から乗ります。<b>淀屋橋ゆき</b>ならどれでも大丈夫。約30分。</div></div></li><li class="change"><div class="bullet">2</div><div class="rbody"><div class="rtop"><span class="rtime">14:05 ごろ</span><span class="rline">大阪メトロ 御堂筋線・新大阪ゆき方面</span></div><div class="rplace">淀屋橋駅　でのりかえ</div><div class="rdetail">案内板の<b>「御堂筋線」</b>へ地下を5分ほど歩きます。約13分。</div></div></li><li class="ride"><div class="bullet">3</div><div class="rbody"><div class="rtop"><span class="rtime">14:30 着 ／ 15:00 ごろ 発</span><span class="rline">東海道新幹線 のぞみ（指定席）</span></div><div class="rplace">新大阪 → 品川</div><div class="rdetail"><b>品川で降ります。終点の東京ではありません。</b>約2時間25分。</div></div></li><li class="change"><div class="bullet">4</div><div class="rbody"><div class="rtop"><span class="rtime">17:25 ごろ</span><span class="rline">JR山手線・内回り</span></div><div class="rplace">品川駅　でのりかえ</div><div class="rdetail">大崎・五反田の次が<b>目黒</b>です（3つ目・約8分）。</div></div></li><li class="change"><div class="bullet">5</div><div class="rbody"><div class="rtop"><span class="rtime">17:50 ごろ</span><span class="rline">東急目黒線・各駅停車</span></div><div class="rplace">目黒駅　でのりかえ</div><div class="rdetail"><b>不動前はとなりの駅（1つ目）</b>です。約2分。</div></div></li><li class="goal"><div class="bullet">6</div><div class="rbody"><div class="rtop"><span class="rtime">18:00</span><span class="rline">東急目黒線 不動前駅</span></div><div class="rplace">不動前駅 改札口　で待ち合わせ</div><div class="rdetail"><b>不動前駅の改札は1か所だけ</b>です。改札を出たところで待っています。</div></div></li></ol>
   <div class="spacer"></div>
   <div class="callout">
@@ -200,14 +200,15 @@ figure.wide .cap-d{font-size:18px;}
     ② 品川から <b>山手線・内回り</b> で目黒（3つ目）
     ③ 目黒から <b>東急目黒線</b> で不動前（となり）<br>
     <b>不動前駅の改札は1か所だけ</b>なので、迷うことはありません。18時にそこで待っています。
-    電車が遅れたときは、いつでも携帯に電話してください。
+    電車が遅れたときは、いつでも携帯に電話してください。<br>
+    <b>翌9/19（土）は朝5時台に家を出ます。</b>8:00に成田空港で搭乗手続き、10:25 発です。
   </div>
   <div class="foot">※ 時刻は目安です。指定席が取れしだい、正確な列車名をお知らせします。</div>
 </section>
 <section class="page">
   <div class="phead">
     <div>
-      <div class="spot-day">9/19（土）〜 9/21（月）</div>
+      <div class="spot-day">9/19（土）夜 〜 9/21（月）朝</div>
       <h2 class="spot-name">ドゥブロブニク</h2>
       <div class="spot-local">DUBROVNIK ／ クロアチア</div>
     </div>
@@ -220,7 +221,7 @@ figure.wide .cap-d{font-size:18px;}
 <section class="page">
   <div class="phead">
     <div>
-      <div class="spot-day">9/21（月）〜 9/22（火）</div>
+      <div class="spot-day">9/21（月）13:25 〜 9/22（火）10:15</div>
       <h2 class="spot-name">スプリト</h2>
       <div class="spot-local">SPLIT ／ クロアチア</div>
     </div>
@@ -233,7 +234,7 @@ figure.wide .cap-d{font-size:18px;}
 <section class="page">
   <div class="phead">
     <div>
-      <div class="spot-day">9/22（火）〜 9/23（水）</div>
+      <div class="spot-day">9/22（火）〜 9/24（木）朝　※観光は9/23終日</div>
       <h2 class="spot-name">プリトヴィッツェ湖群国立公園</h2>
       <div class="spot-local">PLITVIČKA JEZERA ／ クロアチア</div>
     </div>
@@ -246,7 +247,7 @@ figure.wide .cap-d{font-size:18px;}
 <section class="page">
   <div class="phead">
     <div>
-      <div class="spot-day">9/24（木）</div>
+      <div class="spot-day">9/24（木）12:00 〜 9/25（金）7:30</div>
       <h2 class="spot-name">ザグレブ</h2>
       <div class="spot-local">ZAGREB ／ クロアチアの首都</div>
     </div>
@@ -259,7 +260,7 @@ figure.wide .cap-d{font-size:18px;}
 <section class="page">
   <div class="phead">
     <div>
-      <div class="spot-day">9/25（金）</div>
+      <div class="spot-day">9/25（金）9:40 〜 9/26（土）朝</div>
       <h2 class="spot-name">リュブリャナ</h2>
       <div class="spot-local">LJUBLJANA ／ スロベニアの首都</div>
     </div>
@@ -272,13 +273,13 @@ figure.wide .cap-d{font-size:18px;}
 <section class="page">
   <div class="phead">
     <div>
-      <div class="spot-day">9/26（土）</div>
+      <div class="spot-day">9/25（金）13:19 〜 18:16　日帰り</div>
       <h2 class="spot-name">ブレッド湖</h2>
       <div class="spot-local">BLED ／ スロベニア</div>
     </div>
     <div class="pnum">9 / 10</div>
   </div>
-  <p class="spot-lead">アルプスのふもと、湖の真ん中に島と教会が浮かぶ絵はがきのような景色。旅の締めくくりです。</p>
+  <p class="spot-lead">アルプスのふもと、湖の真ん中に島と教会が浮かぶ絵はがきのような景色。リュブリャナから日帰りで訪ねます。</p>
   <div class="grid"><figure class="wide"><div class="ph" data-label="湖に浮かぶ島と教会"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/01/Aerial_image_of_Lake_Bled_(view_from_the_southwest).jpg/1600px-Aerial_image_of_Lake_Bled_(view_from_the_southwest).jpg" alt="湖に浮かぶ島と教会" loading="lazy"></div><figcaption><div class="cap-t">湖に浮かぶ島と教会</div><div class="cap-d">スロベニアを代表する景色。奥にはアルプスの山並み。</div></figcaption></figure><figure class=""><div class="ph" data-label="手漕ぎ舟プレトナ"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Pletna-Bled.JPG/1000px-Pletna-Bled.JPG" alt="手漕ぎ舟プレトナ" loading="lazy"></div><figcaption><div class="cap-t">手漕ぎ舟プレトナ</div><div class="cap-d">船頭さんが漕ぐ舟で島へ渡ります。揺れは穏やかです。</div></figcaption></figure><figure class=""><div class="ph" data-label="ブレッド城"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7b/Bled_Castle.JPG/1000px-Bled_Castle.JPG" alt="ブレッド城" loading="lazy"></div><figcaption><div class="cap-t">ブレッド城</div><div class="cap-d">崖の上に建つ古城。バスや車で上まで行けます。</div></figcaption></figure><figure class=""><div class="ph" data-label="城のテラスからの眺め"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/Bled-Lake_and_Island_from_Castle.JPG/1000px-Bled-Lake_and_Island_from_Castle.JPG" alt="城のテラスからの眺め" loading="lazy"></div><figcaption><div class="cap-t">城のテラスからの眺め</div><div class="cap-d">湖を真上から見下ろす、いちばんの絶景ポイント。</div></figcaption></figure><figure class=""><div class="ph" data-label="ヴィントガル峡谷"><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Vintgar-gorge-bled-slovenia.jpg/1000px-Vintgar-gorge-bled-slovenia.jpg" alt="ヴィントガル峡谷" loading="lazy"></div><figcaption><div class="cap-t">ヴィントガル峡谷</div><div class="cap-d">エメラルド色の渓流沿いに木道が続きます。</div></figcaption></figure></div>
   <div class="tips"><div class="tips-h">歩きかたのヒント</div><ul><li>島の教会までは階段が99段あります。舟から眺めるだけでも十分きれいです。</li><li>ブレッド名物のクリームケーキ（クレムナ・レジナ）は、湖を眺めながらぜひ。</li></ul></div>
 </section>

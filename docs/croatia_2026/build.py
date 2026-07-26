@@ -27,7 +27,7 @@ COVER = "Aerial view of the Old Town of Dubrovnik - Croatia.jpg"
 
 SPOTS = [
     {
-        "day": "9/19（土）〜 9/21（月）",
+        "day": "9/19（土）夜 〜 9/21（月）朝",
         "name": "ドゥブロブニク",
         "name_local": "DUBROVNIK ／ クロアチア",
         "lead": "「アドリア海の真珠」。オレンジ色の屋根と分厚い城壁が、海に浮かんで見える世界遺産の街です。",
@@ -54,7 +54,7 @@ SPOTS = [
         ],
     },
     {
-        "day": "9/21（月）〜 9/22（火）",
+        "day": "9/21（月）13:25 〜 9/22（火）10:15",
         "name": "スプリト",
         "name_local": "SPLIT ／ クロアチア",
         "lead": "ローマ皇帝の宮殿が、そのまま街になった不思議な世界遺産。1700年前の壁の中に、いまも人が住んでいます。",
@@ -81,7 +81,7 @@ SPOTS = [
         ],
     },
     {
-        "day": "9/22（火）〜 9/23（水）",
+        "day": "9/22（火）〜 9/24（木）朝　※観光は9/23終日",
         "name": "プリトヴィッツェ湖群国立公園",
         "name_local": "PLITVIČKA JEZERA ／ クロアチア",
         "lead": "16の湖が滝でつながる、クロアチアで一番有名な自然遺産。水の色は加工なしで、本当にこの色です。",
@@ -108,7 +108,7 @@ SPOTS = [
         ],
     },
     {
-        "day": "9/24（木）",
+        "day": "9/24（木）12:00 〜 9/25（金）7:30",
         "name": "ザグレブ",
         "name_local": "ZAGREB ／ クロアチアの首都",
         "lead": "屋根の模様が愛らしい教会と、活気ある青空市場。首都ですが、こぢんまりとして歩きやすい街です。",
@@ -135,7 +135,7 @@ SPOTS = [
         ],
     },
     {
-        "day": "9/25（金）",
+        "day": "9/25（金）9:40 〜 9/26（土）朝",
         "name": "リュブリャナ",
         "name_local": "LJUBLJANA ／ スロベニアの首都",
         "lead": "川沿いにカフェが並ぶ、ヨーロッパでいちばん小さくて可愛らしい首都のひとつ。丘の上には古城が建ちます。",
@@ -162,10 +162,10 @@ SPOTS = [
         ],
     },
     {
-        "day": "9/26（土）",
+        "day": "9/25（金）13:19 〜 18:16　日帰り",
         "name": "ブレッド湖",
         "name_local": "BLED ／ スロベニア",
-        "lead": "アルプスのふもと、湖の真ん中に島と教会が浮かぶ絵はがきのような景色。旅の締めくくりです。",
+        "lead": "アルプスのふもと、湖の真ん中に島と教会が浮かぶ絵はがきのような景色。リュブリャナから日帰りで訪ねます。",
         "photos": [
             ("Aerial image of Lake Bled (view from the southwest).jpg",
              "湖に浮かぶ島と教会",
@@ -194,17 +194,28 @@ SPOTS = [
 # 2ページ目：全体行程
 # ---------------------------------------------------------------------------
 
+# (日付, 曜日, 行き先, その日の動き, 宿, 行の色分け)
 ITINERARY = [
-    ("9/18", "金", "大阪 → 東京", "香里園から新幹線で上京。夜は息子の家に宿泊。", "japan"),
-    ("9/19", "土", "成田 → ドゥブロブニク", "早朝に自宅を出発。乗継便でクロアチアへ。", "move"),
-    ("9/20", "日", "ドゥブロブニク", "旧市街と城壁、スルジ山からの眺め。", "stay"),
-    ("9/21", "月", "ドゥブロブニク → スプリト", "アドリア海沿いを北へ。", "move"),
-    ("9/22", "火", "スプリト → プリトヴィッツェ", "宮殿の街を歩いてから、内陸の国立公園へ。", "move"),
-    ("9/23", "水", "プリトヴィッツェ国立公園", "湖と滝をめぐる一日。", "stay"),
-    ("9/24", "木", "プリトヴィッツェ → ザグレブ", "首都ザグレブの旧市街を観光。", "move"),
-    ("9/25", "金", "ザグレブ → リュブリャナ", "国境を越えてスロベニアへ。", "move"),
-    ("9/26", "土", "ブレッド湖 → 帰国の途へ", "アルプスの湖を訪ねてから空港へ。", "move"),
-    ("9/27", "日", "日本 到着", "おつかれさまでした。", "japan"),
+    ("9/18", "金", "大阪 → 東京",
+     "香里園から新幹線で上京。", "息子の家", "japan"),
+    ("9/19", "土", "成田 → ドゥブロブニク",
+     "10:25 成田発 → イスタンブール乗継 → 19:55 着", "Guest House Nenada", "move"),
+    ("9/20", "日", "ドゥブロブニク",
+     "終日、旧市街と城壁めぐり。", "Guest House Nenada", "stay"),
+    ("9/21", "月", "ドゥブロブニク → スプリト",
+     "8:00 発 → 13:25 スプリト着", "Villa Spalatina", "move"),
+    ("9/22", "火", "スプリト → プリトヴィッツェ",
+     "10:15 発 → 14:45 ムキニェ着", "House Dado", "move"),
+    ("9/23", "水", "プリトヴィッツェ国立公園",
+     "9:00 から、湖と滝をめぐる一日。", "House Dado", "stay"),
+    ("9/24", "木", "プリトヴィッツェ → ザグレブ",
+     "9:45 発 → 12:00 ザグレブ着", "Hostel Temza", "move"),
+    ("9/25", "金", "リュブリャナ ＆ ブレッド湖",
+     "7:30 ザグレブ発 → 9:40 着。昼はブレッド湖へ。", "Apartma N'Poznam zupa", "move"),
+    ("9/26", "土", "リュブリャナ → 帰国の途へ",
+     "9:30 発 → ヘルシンキ乗継 → 17:45 発", "機内泊", "move"),
+    ("9/27", "日", "成田 到着 ／ 母は大阪へ",
+     "13:05 成田着。おつかれさまでした。", "—", "japan"),
 ]
 
 # ---------------------------------------------------------------------------
@@ -310,17 +321,21 @@ a{color:inherit;}
 
 /* ---------- 行程一覧 ---------- */
 .itin{flex:0 0 auto; width:100%; border-collapse:collapse;}
-.itin td{padding:3px 12px; border-bottom:1px solid var(--line); vertical-align:middle;}
+.itin td{padding:2px 12px; border-bottom:1px solid var(--line); vertical-align:middle;}
+.itin th{padding:0 12px 4px; font-size:15px; color:var(--sub); text-align:left;
+  font-weight:700; border-bottom:2px solid var(--line);}
+.itin th.d-stay{text-align:right;}
 .itin tr.japan{background:#fff3e6;}
 .itin tr.stay{background:var(--sea-l);}
 .d-date{font-weight:800; font-size:23px; white-space:nowrap; width:104px; color:var(--sea);}
 .d-dow{font-size:16px; color:var(--sub); font-weight:700; width:30px; text-align:center;}
-.d-place{font-weight:700; font-size:21px;}
+.d-place{font-weight:700; font-size:20px;}
 .d-note{font-size:16px; color:var(--sub); line-height:1.4;}
+.d-stay{font-size:14px; color:var(--sub); width:180px; line-height:1.35; text-align:right;}
 .legend{flex:0 0 auto; margin-top:10px; font-size:17px; color:var(--sub);
         display:flex; gap:26px; flex-wrap:wrap;}
 .legend span{display:flex; align-items:center; gap:9px;}
-.chip{width:26px; height:16px; border-radius:4px; border:1px solid var(--line); display:inline-block;}
+.chip{width:22px; height:12px; vertical-align:middle; border-radius:4px; border:1px solid var(--line); display:inline-block;}
 
 /* ---------- 道順 ---------- */
 .route{flex:0 0 auto; list-style:none; padding:0; margin:0;}
@@ -338,11 +353,11 @@ a{color:inherit;}
 .rline{font-size:16px; color:#fff; background:var(--sea); display:inline-block;
   padding:2px 11px; border-radius:5px; font-weight:700;}
 .route li.goal .rline{background:var(--sun);}
-.rplace{font-size:23px; font-weight:800; margin:1px 0 2px;}
-.rdetail{font-size:17px; line-height:1.55; color:var(--ink);}
+.rplace{font-size:22px; font-weight:800; margin:1px 0 2px;}
+.rdetail{font-size:16px; line-height:1.55; color:var(--ink);}
 
 .callout{flex:0 0 auto; background:var(--sea-l); border-left:9px solid var(--sea);
-  padding:11px 18px; border-radius:0 8px 8px 0; font-size:17px; line-height:1.6;}
+  padding:10px 18px; border-radius:0 8px 8px 0; font-size:16px; line-height:1.55;}
 .callout b{color:var(--sea);}
 .ctitle{font-size:21px; font-weight:800; color:var(--sea); margin-bottom:3px;}
 .spacer{flex:1 1 auto; min-height:0;}
@@ -448,25 +463,22 @@ def build_cover():
 def build_itinerary():
     rows = "".join(
         f'<tr class="{k}"><td class="d-date">{esc(d)}</td><td class="d-dow">{esc(w)}</td>'
-        f'<td><div class="d-place">{esc(p)}</div><div class="d-note">{esc(n)}</div></td></tr>'
-        for d, w, p, n, k in ITINERARY
+        f'<td><div class="d-place">{esc(p)}</div><div class="d-note">{esc(n)}</div></td>'
+        f'<td class="d-stay">{esc(stay)}</td></tr>'
+        for d, w, p, n, stay, k in ITINERARY
     )
     return f"""
 <section class="page">
   <div class="phead"><h2>ぜんたいの行程</h2><div class="pnum">2 / {TOTAL}</div></div>
   <p class="plead">9月18日から27日までの10日間。おおまかな流れです。</p>
-  <table class="itin"><tbody>{rows}</tbody></table>
-  <div class="legend">
-    <span><i class="chip" style="background:#fff3e6"></i>日本国内・移動が中心の日</span>
-    <span><i class="chip" style="background:#e7f1f8"></i>同じ町に連泊・観光が中心の日</span>
-  </div>
+  <table class="itin"><thead><tr><th colspan="3">日付と行き先</th><th class="d-stay">泊まる宿</th></tr></thead><tbody>{rows}</tbody></table>
   <div class="spacer"></div>
   <div class="callout">
     <div class="ctitle">持ちものメモ</div>
     パスポート ／ 常備薬は多めに ／ 歩きやすい靴 ／ 薄手の上着（朝晩は15度ほど）<br>
     日本との時差は <b>7時間</b>（日本のほうが進んでいます）。
   </div>
-  <div class="foot">※ 便名・時刻・宿は変わることがあります。</div>
+  <div class="foot"><i class="chip" style="background:#fff3e6"></i> 日本国内　<i class="chip" style="background:#e7f1f8"></i> 同じ町に連泊し、観光が中心の日　／ 便名・時刻・宿は変わることがあります。</div>
 </section>"""
 
 
@@ -482,7 +494,7 @@ def build_route():
     return f"""
 <section class="page">
   <div class="phead"><h2>9月18日（金）　香里園 → 不動前</h2><div class="pnum">3 / {TOTAL}</div></div>
-  <p class="plead">東京へ移動して、息子の家に泊まります。旅行かばんはこの日から持って出ます。</p>
+  <p class="plead">東京へ移動して、息子の家に泊まります。旅行かばんはこの日から。</p>
   <ol class="route">{items}</ol>
   <div class="spacer"></div>
   <div class="callout">
@@ -491,7 +503,8 @@ def build_route():
     ② 品川から <b>山手線・内回り</b> で目黒（3つ目）
     ③ 目黒から <b>東急目黒線</b> で不動前（となり）<br>
     <b>不動前駅の改札は1か所だけ</b>なので、迷うことはありません。18時にそこで待っています。
-    電車が遅れたときは、いつでも携帯に電話してください。
+    電車が遅れたときは、いつでも携帯に電話してください。<br>
+    <b>翌9/19（土）は朝5時台に家を出ます。</b>8:00に成田空港で搭乗手続き、10:25 発です。
   </div>
   <div class="foot">※ 時刻は目安です。指定席が取れしだい、正確な列車名をお知らせします。</div>
 </section>"""
