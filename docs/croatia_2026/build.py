@@ -241,7 +241,8 @@ ROUTE = [
         "time": "14:30 着 ／ 15:00 ごろ 発",
         "place": "新大阪 → 品川",
         "line": "東海道新幹線 のぞみ（指定席）",
-        "detail": "<b>品川で降ります。終点の東京ではありません。</b>約2時間25分。",
+        "detail": "<b>品川で降ります。終点の東京ではありません。</b>約2時間25分。"
+                  "指定席はご自身でお取りください。",
         "kind": "ride",
     },
     {
@@ -254,8 +255,9 @@ ROUTE = [
     {
         "time": "17:50 ごろ",
         "place": "目黒駅　でのりかえ",
-        "line": "東急目黒線・各駅停車",
-        "detail": "<b>不動前はとなりの駅（1つ目）</b>です。約2分。",
+        "line": "東急目黒線・各駅停車（急行は不可）",
+        "detail": "<b>かならず「各駅停車」に乗ってください。急行は不動前に止まりません。</b>"
+                  "不動前はとなりの駅（1つ目）です。約2分。",
         "kind": "change",
     },
     {
@@ -317,7 +319,7 @@ a{color:inherit;}
        display:flex; align-items:flex-end; justify-content:space-between; gap:16px;}
 .phead h2{font-size:32px; font-weight:800; color:var(--sea);}
 .pnum{font-size:18px; color:var(--sub); font-weight:700; white-space:nowrap; padding-bottom:4px;}
-.plead{flex:0 0 auto; font-size:21px; color:var(--sub); margin-bottom:10px;}
+.plead{flex:0 0 auto; font-size:20px; color:var(--sub); margin-bottom:8px;}
 
 /* ---------- 行程一覧 ---------- */
 .itin{flex:0 0 auto; width:100%; border-collapse:collapse;}
@@ -339,7 +341,7 @@ a{color:inherit;}
 
 /* ---------- 道順 ---------- */
 .route{flex:0 0 auto; list-style:none; padding:0; margin:0;}
-.route li{display:flex; gap:16px; padding-bottom:5px; position:relative;}
+.route li{display:flex; gap:16px; padding-bottom:3px; position:relative;}
 .route li:not(:last-child)::before{content:""; position:absolute; left:23px; top:48px; bottom:0;
   width:4px; background:var(--line); border-radius:2px;}
 .bullet{flex:0 0 50px; height:50px; border-radius:50%; background:var(--sea); color:#fff;
@@ -428,7 +430,7 @@ figure.wide .cap-d{font-size:18px;}
 """
 
 
-TOTAL = 3 + len(SPOTS) + 1
+TOTAL = 3 + len(SPOTS)
 
 
 def esc(s):
@@ -470,7 +472,7 @@ def build_itinerary():
     )
     return f"""
 <section class="page">
-  <div class="phead"><h2>ぜんたいの行程</h2><div class="pnum">2 / {TOTAL}</div></div>
+  <div class="phead"><h2>全体の行程</h2><div class="pnum">2 / {TOTAL}</div></div>
   <p class="plead">9月18日から27日までの10日間。おおまかな流れです。</p>
   <table class="itin"><thead><tr><th colspan="3">日付と行き先</th><th class="d-stay">泊まる宿</th></tr></thead><tbody>{rows}</tbody></table>
   <div class="spacer"></div>
@@ -479,7 +481,7 @@ def build_itinerary():
     パスポート ／ 常備薬は多めに ／ 歩きやすい靴 ／ 薄手の上着（朝晩は15度ほど）<br>
     日本との時差は <b>7時間</b>（日本のほうが進んでいます）。
   </div>
-  <div class="foot"><i class="chip" style="background:#fff3e6"></i> 日本国内　<i class="chip" style="background:#e7f1f8"></i> 同じ町に連泊し、観光が中心の日　／ 便名・時刻・宿は変わることがあります。</div>
+  <div class="foot"><i class="chip" style="background:#fff3e6"></i> 日本国内　<i class="chip" style="background:#e7f1f8"></i> 同じ町に連泊し、観光が中心の日</div>
 </section>"""
 
 
@@ -502,12 +504,12 @@ def build_route():
     <div class="ctitle">これだけ覚えておけば大丈夫</div>
     ① 新幹線は <b>品川</b> で降りる（東京まで行かない）
     ② 品川から <b>山手線・内回り</b> で目黒（3つ目）
-    ③ 目黒から <b>東急目黒線</b> で不動前（となり）<br>
+    ③ 目黒から <b>東急目黒線の各駅停車</b> で不動前（となり）。<b>急行は止まりません</b><br>
     <b>不動前駅の改札は1か所だけ</b>なので、迷うことはありません。18時にそこで待っています。
-    電車が遅れたときは、いつでも携帯に電話してください。<br>
+    電車が遅れたときは、いつでも<b>LINE</b>で知らせてください。<br>
     <b>翌9/19（土）は朝5時台に家を出ます。</b>8:00に成田空港で搭乗手続き、10:25 発です。
   </div>
-  <div class="foot">※ 時刻は目安です。指定席が取れしだい、正確な列車名をお知らせします。</div>
+  <div class="foot">※ 時刻は目安です。18時に不動前へ着く新幹線であれば、どの便でも大丈夫です。</div>
 </section>"""
 
 
@@ -545,21 +547,42 @@ def all_files():
     return out
 
 
+CREDITS_OUT = os.path.join(HERE, "credits.html")
+
+
 def build_credits():
+    """写真の出典一覧（credits.html）。
+
+    母に渡す冊子には入れない。ただしコモンズの写真には撮影者表示を求める
+    ライセンスのものがあるため、出典そのものは残しておく。
+    """
     rows = "".join(
         f'<li><a href="{esc(commons_page(f))}">{esc(f)}</a></li>' for f in all_files()
     )
-    return f"""
+    return f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>写真の出典｜クロアチア＆スロベニア</title>
+<style>{CSS}
+body{{background:var(--paper); font-size:17px;}}
+.page{{width:auto; height:auto; min-height:0; margin:0; box-shadow:none;}}
+</style>
+</head>
+<body>
 <section class="page">
-  <div class="phead"><h2>写真について</h2><div class="pnum">{TOTAL} / {TOTAL}</div></div>
+  <div class="phead"><h2>写真について</h2></div>
   <p class="plead">
-    掲載した写真はすべて、ウィキメディア・コモンズで自由な利用が認められている
+    案内資料に使った写真はすべて、ウィキメディア・コモンズで自由な利用が認められている
     <b>実際に撮影された写真</b>です。AIで生成した画像は使っていません。
     撮影者とライセンスは、下のリンク先のページで確認できます。
   </p>
   <ul class="credits">{rows}</ul>
   <div class="foot">出典：Wikimedia Commons — https://commons.wikimedia.org/</div>
-</section>"""
+</section>
+</body>
+</html>
+"""
 
 
 # 写真が読み込めなかったとき、黙って空白になるのではなく赤枠とファイル名を出すための部品。
@@ -597,7 +620,6 @@ FAIL_JS = """<script>
 def build():
     parts = [build_cover(), build_itinerary(), build_route()]
     parts += [build_spot(s, 4 + i) for i, s in enumerate(SPOTS)]
-    parts.append(build_credits())
     return f"""<!doctype html>
 <html lang="ja">
 <head>
@@ -767,3 +789,6 @@ if __name__ == "__main__":
         with open(CHECK_OUT, "w", encoding="utf-8") as f:
             f.write(build_check())
         print("出力:", CHECK_OUT, "（写真の確認用）")
+        with open(CREDITS_OUT, "w", encoding="utf-8") as f:
+            f.write(build_credits())
+        print("出力:", CREDITS_OUT, "（写真の出典。冊子には入れない）")
