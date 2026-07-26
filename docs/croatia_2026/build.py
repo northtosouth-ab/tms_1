@@ -632,7 +632,10 @@ def localize():
             req = urllib.request.Request(url, headers={"User-Agent": "croatia-guide/1.0 (personal)"})
             with urllib.request.urlopen(req) as r, open(local, "wb") as f:
                 f.write(r.read())
-        doc = doc.replace(url, "images/" + os.path.basename(local))
+        # ファイル名に ' を含む写真は doc 側で &#x27; に変換されているため、
+        # エスケープ後の形でも置き換える（Diocletian's Palace など）
+        ref = "images/" + os.path.basename(local)
+        doc = doc.replace(esc(url), ref).replace(url, ref)
     out = os.path.join(HERE, "index_offline.html")
     with open(out, "w", encoding="utf-8") as f:
         f.write(doc)

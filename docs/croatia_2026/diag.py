@@ -13,10 +13,8 @@ FilePath : commons.wikimedia.org の公式リダイレクト。計算不要で�
 """
 
 import os
-import urllib.parse
-
 from build import all_photos
-from photos import _SAFE, page, thumb
+from photos import md5_thumb, page, thumb
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, "photo_diag.html")
@@ -27,9 +25,8 @@ CONTROL = "Example.jpg"
 
 
 def filepath(filename: str, width: int = 320) -> str:
-    """Special:FilePath 経由のURL。MD5の計算を挟まない分こわれにくい。"""
-    enc = urllib.parse.quote(filename.replace(" ", "_"), safe=_SAFE)
-    return f"https://commons.wikimedia.org/wiki/Special:FilePath/{enc}?width={width}"
+    """Special:FilePath 経由のURL。資料本体もいまはこちらを使っている。"""
+    return thumb(filename, width)
 
 
 def esc(s):
@@ -46,7 +43,7 @@ def build():
             f'<td class="n">{i}</td>'
             f'<td class="cap">{esc(cap)}<br>'
             f'<a href="{esc(page(fn))}" target="_blank">{esc(fn)}</a></td>'
-            f'<td><img class="t md5" src="{esc(thumb(fn, 320))}" data-file="{esc(fn)}"></td>'
+            f'<td><img class="t md5" src="{esc(md5_thumb(fn, 320))}" data-file="{esc(fn)}"></td>'
             f'<td><img class="t fp" src="{esc(filepath(fn))}" data-file="{esc(fn)}"></td>'
             f"</tr>"
         )
