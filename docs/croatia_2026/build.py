@@ -224,36 +224,37 @@ ITINERARY = [
 
 ROUTE = [
     {
-        "time": "13:35 ごろ 発",
+        "time": "13:50 ごろ 発",
         "place": "香里園駅",
         "line": "京阪本線・急行　淀屋橋ゆき",
         "detail": "いつもの香里園駅から乗ります。<b>淀屋橋ゆき</b>ならどれでも大丈夫。約30分。",
         "kind": "start",
     },
     {
-        "time": "14:05 ごろ",
+        "time": "14:20 ごろ",
         "place": "淀屋橋駅　でのりかえ",
         "line": "大阪メトロ 御堂筋線・新大阪ゆき方面",
         "detail": "案内板の<b>「御堂筋線」</b>へ地下を5分ほど歩きます。約13分。",
         "kind": "change",
     },
     {
-        "time": "14:30 着 ／ 15:00 ごろ 発",
+        "time": "14:45 着 ／ 15:05 ごろ 発",
         "place": "新大阪 → 品川",
         "line": "東海道新幹線 のぞみ（指定席）",
         "detail": "<b>品川で降ります。終点の東京ではありません。</b>約2時間25分。"
+                  "新大阪では乗り換えに20分みています。"
                   "指定席はご自身でお取りください。",
         "kind": "ride",
     },
     {
-        "time": "17:25 ごろ",
+        "time": "17:30 ごろ",
         "place": "品川駅　でのりかえ",
         "line": "JR山手線・内回り",
         "detail": "大崎・五反田の次が<b>目黒</b>です（3つ目・約8分）。",
         "kind": "change",
     },
     {
-        "time": "17:50 ごろ",
+        "time": "17:48 ごろ",
         "place": "目黒駅　でのりかえ",
         "line": "東急目黒線・各駅停車（急行は不可）",
         "detail": "<b>かならず「各駅停車」に乗ってください。急行は不動前に止まりません。</b>"
@@ -388,7 +389,8 @@ figure.wide{grid-column:1 / -1;}
 .ph img{position:relative; z-index:1; width:100%; height:100%; object-fit:cover; display:block;
   color:transparent; font-size:0;}
 figcaption{position:absolute; left:0; right:0; bottom:0; color:#fff;
-  padding:26px 16px 12px;
+  /* 写真(.ph img)が z-index:1 なので、それより上に重ねないと隠れてしまう */
+  z-index:2; padding:26px 16px 12px;
   background:linear-gradient(to top,rgba(6,20,34,.88) 0%,rgba(6,20,34,.6) 55%,rgba(6,20,34,0) 100%);}
 .cap-t{font-size:21px; font-weight:800; line-height:1.25; text-shadow:0 1px 4px rgba(0,0,0,.6);}
 .cap-d{font-size:16px; line-height:1.45; margin-top:2px; opacity:.94;
@@ -509,7 +511,7 @@ def build_route():
     電車が遅れたときは、いつでも<b>LINE</b>で知らせてください。<br>
     <b>翌9/19（土）は朝5時台に家を出ます。</b>8:00に成田空港で搭乗手続き、10:25 発です。
   </div>
-  <div class="foot">※ 時刻は目安です。18時に不動前へ着く新幹線であれば、どの便でも大丈夫です。</div>
+  <div class="foot">※ 時刻は目安です。<b>17時30分ごろ品川に着く新幹線</b>であれば、どの便でも大丈夫です。</div>
 </section>"""
 
 
@@ -637,8 +639,36 @@ def build():
 
 
 def localize():
-    """写真をダウンロードして images/ に置き、ローカル参照版を出力する。"""
+    """写真をダウンロードして images/ に置き、ローカル参照版を出力する。
+
+    コモンズは短時間に大量の取得をすると 429 を返す。相手のサーバに迷惑を
+    かけないよう、1枚ごとに間隔をあけ、429 のときは待ち時間を倍にして
+    retry する。取得済みの写真は飛ばすので、途中で止まっても再実行できる。
+    """
+    import time
+    import urllib.error
     import urllib.request
+
+    # コモンズの利用規約は、連絡先の分かる説明的な User-Agent を求めている
+    ua = {
+        "User-Agent": "croatia-guide/1.0 "
+                      "(https://github.com/northtosouth-ab/tms_1; personal travel document)"
+    }
+
+    def fetch(url, tries=5):
+        wait = 2
+        for attempt in range(1, tries + 1):
+            try:
+                req = urllib.request.Request(url, headers=ua)
+                with urllib.request.urlopen(req, timeout=120) as r:
+                    return r.read()
+            except urllib.error.HTTPError as e:
+                if e.code != 429 or attempt == tries:
+                    raise
+                print(f"  429。{wait}秒待って再試行（{attempt}/{tries - 1}）")
+                time.sleep(wait)
+                wait *= 2
+        raise RuntimeError("unreachable")
 
     imgdir = os.path.join(HERE, "images")
     os.makedirs(imgdir, exist_ok=True)
@@ -646,14 +676,17 @@ def localize():
     wanted = [(COVER, 2000)] + [
         (p[0], 1600 if p[3] else 1000) for s in SPOTS for p in s["photos"]
     ]
-    for name, width in wanted:
+    seen = set()
+    for i, (name, width) in enumerate(wanted, 1):
         url = thumb(name, width)
         local = os.path.join(imgdir, f"{width}px-{name.replace(' ', '_')}")
-        if not os.path.exists(local):
-            print("取得:", url)
-            req = urllib.request.Request(url, headers={"User-Agent": "croatia-guide/1.0 (personal)"})
-            with urllib.request.urlopen(req) as r, open(local, "wb") as f:
-                f.write(r.read())
+        if url not in seen and not os.path.exists(local):
+            print(f"[{i}/{len(wanted)}] 取得:", name)
+            data = fetch(url)
+            with open(local, "wb") as f:
+                f.write(data)
+            time.sleep(1)  # 連続取得を避ける
+        seen.add(url)
         # ファイル名に ' を含む写真は doc 側で &#x27; に変換されているため、
         # エスケープ後の形でも置き換える（Diocletian's Palace など）
         ref = "images/" + os.path.basename(local)

@@ -119,7 +119,8 @@ figure.wide{grid-column:1 / -1;}
 .ph img{position:relative; z-index:1; width:100%; height:100%; object-fit:cover; display:block;
   color:transparent; font-size:0;}
 figcaption{position:absolute; left:0; right:0; bottom:0; color:#fff;
-  padding:26px 16px 12px;
+  /* 写真(.ph img)が z-index:1 なので、それより上に重ねないと隠れてしまう */
+  z-index:2; padding:26px 16px 12px;
   background:linear-gradient(to top,rgba(6,20,34,.88) 0%,rgba(6,20,34,.6) 55%,rgba(6,20,34,0) 100%);}
 .cap-t{font-size:21px; font-weight:800; line-height:1.25; text-shadow:0 1px 4px rgba(0,0,0,.6);}
 .cap-d{font-size:16px; line-height:1.45; margin-top:2px; opacity:.94;
@@ -198,7 +199,7 @@ figure.wide .cap-d{font-size:18px;}
 <section class="page">
   <div class="phead"><h2>9月18日（金）　香里園 → 不動前</h2><div class="pnum">3 / 9</div></div>
   <p class="plead">東京へ移動して、息子の家に泊まります。旅行かばんはこの日から。</p>
-  <ol class="route"><li class="start"><div class="bullet">1</div><div class="rbody"><div class="rtop"><span class="rtime">13:35 ごろ 発</span><span class="rline">京阪本線・急行　淀屋橋ゆき</span></div><div class="rplace">香里園駅</div><div class="rdetail">いつもの香里園駅から乗ります。<b>淀屋橋ゆき</b>ならどれでも大丈夫。約30分。</div></div></li><li class="change"><div class="bullet">2</div><div class="rbody"><div class="rtop"><span class="rtime">14:05 ごろ</span><span class="rline">大阪メトロ 御堂筋線・新大阪ゆき方面</span></div><div class="rplace">淀屋橋駅　でのりかえ</div><div class="rdetail">案内板の<b>「御堂筋線」</b>へ地下を5分ほど歩きます。約13分。</div></div></li><li class="ride"><div class="bullet">3</div><div class="rbody"><div class="rtop"><span class="rtime">14:30 着 ／ 15:00 ごろ 発</span><span class="rline">東海道新幹線 のぞみ（指定席）</span></div><div class="rplace">新大阪 → 品川</div><div class="rdetail"><b>品川で降ります。終点の東京ではありません。</b>約2時間25分。指定席はご自身でお取りください。</div></div></li><li class="change"><div class="bullet">4</div><div class="rbody"><div class="rtop"><span class="rtime">17:25 ごろ</span><span class="rline">JR山手線・内回り</span></div><div class="rplace">品川駅　でのりかえ</div><div class="rdetail">大崎・五反田の次が<b>目黒</b>です（3つ目・約8分）。</div></div></li><li class="change"><div class="bullet">5</div><div class="rbody"><div class="rtop"><span class="rtime">17:50 ごろ</span><span class="rline">東急目黒線・各駅停車（急行は不可）</span></div><div class="rplace">目黒駅　でのりかえ</div><div class="rdetail"><b>かならず「各駅停車」に乗ってください。急行は不動前に止まりません。</b>不動前はとなりの駅（1つ目）です。約2分。</div></div></li><li class="goal"><div class="bullet">6</div><div class="rbody"><div class="rtop"><span class="rtime">18:00</span><span class="rline">東急目黒線 不動前駅</span></div><div class="rplace">不動前駅 改札口　で待ち合わせ</div><div class="rdetail"><b>不動前駅の改札は1か所だけ</b>です。改札を出たところで待っています。</div></div></li></ol>
+  <ol class="route"><li class="start"><div class="bullet">1</div><div class="rbody"><div class="rtop"><span class="rtime">13:50 ごろ 発</span><span class="rline">京阪本線・急行　淀屋橋ゆき</span></div><div class="rplace">香里園駅</div><div class="rdetail">いつもの香里園駅から乗ります。<b>淀屋橋ゆき</b>ならどれでも大丈夫。約30分。</div></div></li><li class="change"><div class="bullet">2</div><div class="rbody"><div class="rtop"><span class="rtime">14:20 ごろ</span><span class="rline">大阪メトロ 御堂筋線・新大阪ゆき方面</span></div><div class="rplace">淀屋橋駅　でのりかえ</div><div class="rdetail">案内板の<b>「御堂筋線」</b>へ地下を5分ほど歩きます。約13分。</div></div></li><li class="ride"><div class="bullet">3</div><div class="rbody"><div class="rtop"><span class="rtime">14:45 着 ／ 15:05 ごろ 発</span><span class="rline">東海道新幹線 のぞみ（指定席）</span></div><div class="rplace">新大阪 → 品川</div><div class="rdetail"><b>品川で降ります。終点の東京ではありません。</b>約2時間25分。新大阪では乗り換えに20分みています。指定席はご自身でお取りください。</div></div></li><li class="change"><div class="bullet">4</div><div class="rbody"><div class="rtop"><span class="rtime">17:30 ごろ</span><span class="rline">JR山手線・内回り</span></div><div class="rplace">品川駅　でのりかえ</div><div class="rdetail">大崎・五反田の次が<b>目黒</b>です（3つ目・約8分）。</div></div></li><li class="change"><div class="bullet">5</div><div class="rbody"><div class="rtop"><span class="rtime">17:48 ごろ</span><span class="rline">東急目黒線・各駅停車（急行は不可）</span></div><div class="rplace">目黒駅　でのりかえ</div><div class="rdetail"><b>かならず「各駅停車」に乗ってください。急行は不動前に止まりません。</b>不動前はとなりの駅（1つ目）です。約2分。</div></div></li><li class="goal"><div class="bullet">6</div><div class="rbody"><div class="rtop"><span class="rtime">18:00</span><span class="rline">東急目黒線 不動前駅</span></div><div class="rplace">不動前駅 改札口　で待ち合わせ</div><div class="rdetail"><b>不動前駅の改札は1か所だけ</b>です。改札を出たところで待っています。</div></div></li></ol>
   <div class="spacer"></div>
   <div class="callout">
     <div class="ctitle">これだけ覚えておけば大丈夫</div>
@@ -209,7 +210,7 @@ figure.wide .cap-d{font-size:18px;}
     電車が遅れたときは、いつでも<b>LINE</b>で知らせてください。<br>
     <b>翌9/19（土）は朝5時台に家を出ます。</b>8:00に成田空港で搭乗手続き、10:25 発です。
   </div>
-  <div class="foot">※ 時刻は目安です。18時に不動前へ着く新幹線であれば、どの便でも大丈夫です。</div>
+  <div class="foot">※ 時刻は目安です。<b>17時30分ごろ品川に着く新幹線</b>であれば、どの便でも大丈夫です。</div>
 </section>
 <section class="page">
   <div class="phead">
